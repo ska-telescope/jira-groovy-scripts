@@ -31,8 +31,6 @@ Issue story;
 
 int storyPoints = 0
 
- 
-
 def issue = context.issue as Issue
 
 //Globals
@@ -53,8 +51,6 @@ def issue = context.issue as Issue
 @Field int countOfInProgressStoryPoints =0
 @Field int countOfDoneStoryPoints =0
 
-
-
 String strHTML
 def percentage = 0;
 def issuePercentage = 0;
@@ -62,6 +58,7 @@ def epicPercentage = 0;
 String formattedPercentageComplete
 String formattedEpicPercentage
 String formattedIssuePercentage
+CustomField cfFeaturePoints
 CustomField cfStoryPoints
 String issueStatusCategory
 
@@ -70,9 +67,7 @@ log.setLevel(Level.DEBUG)
 
 CustomFieldManager myCustomFieldManager = ComponentAccessor.getCustomFieldManager()
 
-log.info("Feature Progress started")
-
-
+//log.info("Feature Progress started")
 
 def sumStoryPoints(int storyPoints, String issueTypeName, String issueStatusCategory ) {
     
@@ -96,47 +91,44 @@ def sumStoryPoints(int storyPoints, String issueTypeName, String issueStatusCate
     }   
 }
 
-
-
 //Main
-if ((issue.getIssueType().getName() != "Feature") && (issue.getIssueType().getName() != "Enabler")){
-  return "Not a Feature or Enabler"
+if ((issue.getIssueType().getName() != "Feature") && (issue.getIssueType().getName() != "Enabler") && (issue.getIssueType().getName() != "Spike")){
+  return "Not a Feature or Enabler or Spike"
 }
 
 //Collect the Feature Estimate (Story Points)
-cfStoryPoints = myCustomFieldManager.getCustomFieldObjects( issue ).find {it.name == "Story Points"}
-if ( cfStoryPoints ) {
-    if ( issue.getCustomFieldValue(cfStoryPoints) != null ) {
-        featureEstimate = (int)issue.getCustomFieldValue(cfStoryPoints);
+cfFeaturePoints = myCustomFieldManager.getCustomFieldObjects( issue ).find {it.name == "Feature Points"}
+if ( cfFeaturePoints ) {
+    if ( issue.getCustomFieldValue(cfFeaturePoints) != null ) {
+        featureEstimate = (int)issue.getCustomFieldValue(cfFeaturePoints);
     }
     else {
         featureEstimate = 0
     }
 }
 
-
-
-
 //Loop through all linked issues associated with this Feature.  
 issueLinkManager.getOutwardLinks(issue.id).each { issueLink ->
     if ( issueLink.issueLinkType.getName() == "Parent/Child" ) {
         story = issueLink.destinationObject    
-  
-        cfStoryPoints = myCustomFieldManager.getCustomFieldObjects( story ).find {it.name == "Story Points"}
-        if ( cfStoryPoints ) {
-            if ( story.getCustomFieldValue(cfStoryPoints) != null ) {
-                storyPoints = (int)story.getCustomFieldValue(cfStoryPoints);
-            }
-            else {
-                storyPoints = 0
-            }
-        }
         
-        issueStatusCategory = story.getStatus().getStatusCategory().getName();
-        sumStoryPoints(storyPoints, story.getIssueType().getName(), issueStatusCategory )
+        if (story.getStatus().getName() != "Discarded") {
+  
+       		cfStoryPoints = myCustomFieldManager.getCustomFieldObjects( story ).find {it.name == "Story Points"}
+        	if ( cfStoryPoints ) {
+            	if ( story.getCustomFieldValue(cfStoryPoints) != null ) {
+                	storyPoints = (int)story.getCustomFieldValue(cfStoryPoints);
+            	}
+            	else {
+                	storyPoints = 0
+            	}
+        	}
+        
+        	issueStatusCategory = story.getStatus().getStatusCategory().getName();
+        	sumStoryPoints(storyPoints, story.getIssueType().getName(), issueStatusCategory )
+        }
     }
 }
-        
         
 if( totalStoryPoints > 0 && countOfDoneStoryPoints > 0) {
     percentage =  (countOfDoneStoryPoints / totalStoryPoints ) * 100    
@@ -158,7 +150,8 @@ else {
 
 String title = "Percentage: " + formattedPercentageComplete 
 strHTML = "<div style='background-color:white'>"
-strHTML += "Progress: <progress style=\"color:green\" value=\"" + countOfDoneStoryPoints + "\" max=\"" + totalStoryPoints + "\" title='" + title + "'></progress>"
+strHTML += "Story Point Burn-up: <progress style=\"color:green\" value=\"" + countOfDoneStoryPoints + "\" max=\"" + totalStoryPoints + "\" title='" + title + "'></progress>"
+strHTML += "<td> <small>(" + formattedPercentageComplete + ")</small></td>"
 strHTML += "</p>"
 strHTML += "Feature Estimate: " + featureEstimate
 strHTML += "</p>"
@@ -180,8 +173,8 @@ strHTML += "<td>" + countOfInProgressStoryPoints + "</td>"
 strHTML += "</tr>"
 strHTML += "<tr>"
 strHTML += "<td>Complete</td>"
-strHTML += "<td>" + countOfDoneStories + " <small>(" + formattedIssuePercentage + ")</small></td>"
-strHTML += "<td>" + countOfDoneStoryPoints + " <small>(" + formattedPercentageComplete + ")</small></td>"
+strHTML += "<td>" + countOfDoneStories 
+strHTML += "<td>" + countOfDoneStoryPoints 
 strHTML += "</tr>"
 strHTML += "<tr>"
 strHTML += "<td><b>Total</b></td>"
@@ -191,4 +184,5 @@ strHTML += "</tr>"
 strHTML += "</table>"
 strHTML += "</div>"
 writer.write strHTML
+
 
