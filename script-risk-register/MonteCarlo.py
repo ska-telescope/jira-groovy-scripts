@@ -118,7 +118,7 @@ def montecarlorisk(num_trials,annual_escalation,subsystem,output_file):
 
 	# AND (cf[12916] is EMPTY OR cf[12916] ='False') 
 
-	query = "project=RM AND issuetype='RM-Risk' AND status='Active Risk/Opportunity' " + fundingstring + "ORDER BY cf[12933]"
+	query = "project=RM AND issuetype='RM-Risk' AND status in ('Active Risk/Opportunity','Subordinated') " + fundingstring + "ORDER BY cf[12933]"
 	fields="components,summary,customfield_12926,customfield_12901,customfield_12905,customfield_12915,customfield_12933,customfield_12936,customfield_12938,description"
 	print(('\n\r Query to database \n\r\n\r'+ query +'\n\r'))
 	issues = jira.search_issues(query,maxResults=None,fields=fields)

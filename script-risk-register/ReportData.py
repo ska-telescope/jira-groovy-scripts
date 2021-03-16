@@ -169,8 +169,8 @@ def analyze(issues,issues_mit,jira):
 	print("Generating tables...")
 
 	risks = df.query("(issue_type == 'RM-Risk') & (Parent != 'True')") # all risks NOT parents
-	#risks_all = df.query("(issue_type == 'RM-Risk')") # all risks
-	active_risks = df.query("(issue_type == 'RM-Risk') & (Status == 'Active Risk/Opportunity') & (Parent != 'True')") # active child risks NOT parents
+	risks_all = df.query("(issue_type == 'RM-Risk')") # all risks
+	active_risks = df.query("(issue_type == 'RM-Risk') & ((Status == 'Active Risk/Opportunity') | (Status == 'Subordinated')) & (Parent != 'True')") # active child risks NOT parents
 	active_risks_all = df.query("(issue_type == 'RM-Risk') & (Status == 'Active Risk/Opportunity')") # active risks
 	non_active_risks = df.query("(issue_type == 'RM-Risk') & (Status != 'Active Risk/Opportunity')") # non-active risks
 	opps = df.query("issue_type == 'RM-Opportunity'") # all opps
@@ -178,7 +178,7 @@ def analyze(issues,issues_mit,jira):
 	#parent_risks = df.query("(issue_type == 'RM-Risk') & (Parent == 'True')") # all parent risks
 
 	# risk overview and risk exposure tables
-	table_1a = pd.pivot_table(risks,index='Subsystem',columns='Status',values='Probability Weighted Exposure (€K)',aggfunc=len,fill_value=0,margins=False)
+	table_1a = pd.pivot_table(risks_all,index='Subsystem',columns='Status',values='Probability Weighted Exposure (€K)',aggfunc=len,fill_value=0,margins=False)
 	table_1b = pd.pivot_table(active_risks,index='Subsystem',values=['Probability Weighted Exposure (€K) After Mitigation','Probability Weighted Exposure (€K)','Non-labor PWE (€K)','Labor PWE (€K)'],aggfunc=sum,margins=False)
 
 	# opportunity overview and exposure
@@ -193,8 +193,8 @@ def analyze(issues,issues_mit,jira):
 	sorted_opps = active_opps.sort_values(by='Probability Weighted Exposure (€K)',ascending=False)
 	table_4 = sorted_opps[0:10][['JIRA ID','Subsystem','WBS','Summary','Probability Weighted Exposure (€K)']]
 
-	# critical risks (risk score in the red zone of matrix, ie >= 15)
-	table_6 = active_risks_all.query("score >= 15").sort_values(by='Probability Weighted Exposure (€K)',ascending=False)[:][['JIRA ID (Parent)','Subsystem','WBS','Summary','Probability Weighted Exposure (€K)','Probability Weighted Exposure (€K) After Mitigation','Proposed Management Response']]
+	# critical risks (risk score in the red zone of matrix, ie >= 12)
+	table_6 = active_risks_all.query("score >= 12").sort_values(by='Probability Weighted Exposure (€K)',ascending=False)[:][['JIRA ID (Parent)','Subsystem','WBS','Summary','Probability Weighted Exposure (€K)','Probability Weighted Exposure (€K) After Mitigation','Proposed Management Response']]
 
 	# trigger date outlook (within next 6 months)
 	table_7 = active_risks_all[active_risks_all['Trigger Date'] < trigger_months].query('Model == "Trigger date"').sort_values(by='Trigger Date',ascending=True)[:][['Subsystem','JIRA ID (Parent)','Summary','WBS','Trigger Date','Probability','Nonlabor Cost','Labor Cost','Probability Weighted Exposure (€K)','Probability Weighted Exposure (€K) After Mitigation']]
