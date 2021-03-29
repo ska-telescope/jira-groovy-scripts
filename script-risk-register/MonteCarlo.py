@@ -63,15 +63,15 @@ def montecarlorisk(num_trials,annual_escalation,subsystem,output_file):
 	###################### Some basic values ###############################
 	#########################################################################################
 	total_contingency = 230694.0  # total contingency in K EUR  TBD !!!!
-	nyears = 8  ## number of years with construction activity
+	nyears = 7  ## number of years with construction activity
 	date_start = "2021-07-01"
-	date_end = "2029-07-31"
-	date_commissioning_start =  "2029-08-01"
+	date_end = "2028-07-31"
+	date_commissioning_start =  "2028-08-01"
 	date_base_year = "2021"
 	date_year_start = "2021"
-	date_year_end = "2029"
+	date_year_end = "2028"
 	annual_esc = 1.0 + annual_escalation  # convert annual fractional escalation to factor
-	yer = ['2021','2022','2023','2024','2025','2026','2027','2028','2029']
+	yer = ['2021','2022','2023','2024','2025','2026','2027','2028']
 
 
 	final_totals_distribution = []
