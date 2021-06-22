@@ -1,0 +1,216 @@
+Id,Code,Description
+1,01,Square Kilometre Array
+2,01.01,Project Office
+3,01.01.01,Programme Director Office
+4,01.01.02,Project Management  Safety and Assurance
+5,01.01.02.01,Project Management
+6,01.01.02.02,Project Control
+7,01.01.02.03,Project Safety
+8,01.01.02.04,Product Assurance Oversight and System Support
+9,01.01.03,System Engineering
+10,01.01.04,Project Engineering
+11,01.01.05,Software Engineering
+12,01.01.05.01,SKA Software Solution Level Implementation
+13,01.01.05.02,SKA Software Content Development and Implementation
+14,01.01.05.03,SKA Software System Team and Services Implementation
+15,01.01.05.04,SKA Software Australian Local Deployment Support and Training
+16,01.01.05.05,SKA Software South African Local Deployment Support and Training
+17,01.01.05.06,SKA Software UK Local Deployment Support and Training
+18,01.01.05.07,SKA SAFe Implementation  Co-ordination and Support
+19,01.01.06,Construction Consultancy
+20,01.01.08,Configuration Management
+21,01.02,MID Telescope
+22,01.02.01,MID Infrastructure
+23,01.02.01.01,MID Infrastructure Activity Management
+24,01.02.01.02,MID Infrastructure Delivery
+25,01.02.01.02.01,Adaption of South African Hosting Agreement Assets
+26,01.02.01.02.02,MID Site Buildings: Delivery
+27,01.02.01.02.02.01,MID Buildings: Delivery
+28,01.02.01.02.02.02,MID Temporary Accommodation: Delivery
+29,01.02.01.02.03,MID Communications: Delivery
+30,01.02.01.02.04,MID Site Surveys: Delivery
+31,01.02.01.02.05,MID Site Monitoring: Delivery
+32,01.02.01.02.05.01,MID Weather  Visual & STI Monitoring Stations: Delivery
+33,01.02.01.02.05.02,MID RFI Monitoring Stations: Delivery
+34,01.02.01.02.06,MID Infrastructure Maintenance Vehicles: Delivery   
+35,01.02.01.02.07,MID Array Infrastructure: Delivery
+36,01.02.01.02.07.01,MID Network Delivery: DDBH
+37,01.02.01.02.07.02,MID Network Delivery NSDN for MeerKAT Dishes
+38,01.02.01.02.07.03,MID Network Delivery NSDN without MeerKAT Dishes
+39,01.02.01.02.07.04,MID Network Delivery: CSP-SDP
+40,01.02.01.02.07.05,MID Power & Fibre Reticulation Networks: Delivery
+41,01.02.01.02.07.06,MID Access: Delivery
+42,01.02.01.02.07.07,MID Antenna Foundations: Delivery 
+43,01.02.01.02.07.08,MID Network Activity Management
+44,01.02.01.02.07.09,MID Network Delivery - NMGR Hardware
+45,01.02.01.02.07.10,Fibre cabling and connectivity in Mid CPF
+46,01.02.01.02.08,MID Power: Delivery
+47,01.02.01.02.08.01,MID Site Power Facility & Statcom unit: Delivery
+48,01.02.01.02.08.02,MID ESKOM Karoo Substation: Delivery
+49,01.02.01.02.08.03,MID RFI Shielding & PV Power: Delivery
+50,01.02.01.02.10,MID Building Management System: Delivery
+51,01.02.01.02.11,MID Security: Delivery
+52,01.02.01.03,MID Infrastructure for MK+
+53,01.02.02,Mid Array
+54,01.02.02.01,MID Array Dish Activity Management
+55,01.02.02.02,MID Array Dish Delivery
+56,01.02.02.02.01,Dish Structure: Delivery
+57,01.02.02.02.01.01,Management  AIV  Main Structure
+58,01.02.02.02.01.02,Drive System
+59,01.02.02.02.01.03,Feed Indexer
+60,01.02.02.02.01.04,Sub Reflector
+61,01.02.02.02.01.05,Shielded Cabinet
+62,01.02.02.02.02,Band 01 SPF: Delivery
+63,01.02.02.02.03,Band 02 SPF: Delivery
+64,01.02.02.02.03.01,Feed Assembly
+65,01.02.02.02.03.02,Band 02 Low Noise Amplifiers
+66,01.02.02.02.04,Band 05 SPF: Delivery
+67,01.02.02.02.04.01,Band 05 Feed Assembly
+68,01.02.02.02.04.02,Band 05 Feed and OMT Assembly
+69,01.02.02.02.04.03,Band 05 Low Noise Amplifiers
+70,01.02.02.02.05,Vacuum System: Delivery
+71,01.02.02.02.06,Cryo System: Delivery
+72,01.02.02.02.06.01,Cold Head and Compressor Delivery
+73,01.02.02.02.06.02,Cryogenic Lines
+74,01.02.02.02.07,SPFRx Delivery
+75,01.02.02.02.07.01,SPFRx Activity Management
+76,01.02.02.02.07.02,SPFRx123 Delivery
+77,01.02.02.02.07.03,SPFRx45 Delivery
+78,01.02.02.02.07.04,SPFRxRXPU delivery
+79,01.02.02.02.08,Dish Local Monitor and Control: Delivery
+80,01.02.02.02.09,Dish Optical Fibre Network: Delivery
+81,01.02.02.02.10,Single Pixel Feed Controller: Delivery
+82,01.02.02.03,MeerKAT Dish Integration
+83,01.02.02.04,MeerKAT Extension Dish Products
+84,01.02.02.04.01,MID Array Dish Activity Management MK+
+85,01.02.02.04.02,Dish Structure MK+ Germany: Delivery
+86,01.02.02.04.03,Dish Structure MK+ China: Delivery
+87,01.02.02.04.04,Band 02 SPF MK+: Delivery
+88,01.02.02.04.05,Vacuum System MK+: Delivery
+89,01.02.02.04.06,Cryo System MK+: Delivery
+90,01.02.02.04.07,Dish Local Monitor and Control MK+: Delivery
+91,01.02.02.04.08,Dish Optical Fibre Network MK+: Delivery
+92,01.02.02.04.09,Single Pixel Feed Controller MK+: Delivery
+93,01.02.03,MID Synchronisation & Timing
+94,01.02.03.01,MID Synchronisation & Timing: Activity Management
+95,01.02.03.02,MID Synchronisation & Timing: Clocks Delivery
+96,01.02.03.02.01,MID Synchronisation & Timing: Clocks Delivery
+97,01.02.03.02.02,MID Synchronisation & Timing: Maser Delivery
+98,01.02.03.04,MID Synchronisation and Timing: Timing Delivery
+99,01.02.03.04.01,MID Frequency Distribution System
+100,01.02.03.04.01.01,MID Frequency Distribution System (UK Contribution)
+101,01.02.03.04.01.02,MID Frequency Distribution System (AUS Contribution)
+102,01.02.03.04.02,MID UTC Distribution
+103,01.02.03.04.03,SAT Components: MeerKAT Delivery and Integration
+104,01.02.04,MID CSP
+105,01.02.04.01,MID CSP Activity Management
+106,01.02.04.02,MID Correlator Beamformer Delivery
+107,01.02.05,RSA Hosting Agreement Activities
+108,01.02.05.01,RSA SPC Activities
+109,01.02.05.02,RSA EOC Activities
+110,01.02.05.03,RSA SOC Activities
+111,01.02.06,MID System ITF Establishment and Operation Support
+112,01.02.07,MID Computing and Networking Hardware Procurement
+113,01.02.07.01,MID Science Data Handling and Processing Hardware
+114,01.02.07.02,MID Non Image Processing - PSS Hardware
+115,01.02.07.03,MID Non Image Processing - PST Hardware
+116,01.02.07.04,MID Observation Management and Controls Hardware
+117,01.02.07.06,MID Operations Computers
+118,01.02.07.07,MID SAT LMC Hardware
+119,01.02.09,System AIV-MID
+120,01.02.10,MID Science Commissioning
+121,01.02.11,MID Science Verification Support
+122,01.03,LOW Telescope
+123,01.03.01,LOW Infrastructure
+124,01.03.01.01,LOW Infrastructure Activity Management
+125,01.03.01.02,LOW Infrastructure Delivery
+126,01.03.01.02.01,Adaption of Australian Hosting Agreement Assets
+127,01.03.01.02.02,LOW Site Buildings: Delivery
+128,01.03.01.02.02.01,LOW Central Processing Facility: Delivery
+129,01.03.01.02.02.02,LOW Remote Processor Facility: Delivery
+130,01.03.01.02.02.03,LOW Accommodation Temporary: Delivery
+131,01.03.01.02.02.04,LOW Temporary CPF
+132,01.03.01.02.03,LOW Communications: Delivery
+133,01.03.01.02.04,LOW Site Surveys: Delivery
+134,01.03.01.02.05,LOW Site Monitoring: Delivery
+135,01.03.01.02.06,LOW Vehicles: Delivery  
+136,01.03.01.02.07,LOW Array Infrastructure
+137,01.03.01.02.07.01,LOW Network Delivery: NSDN
+138,01.03.01.02.07.02,LOW Network Delivery: CSP-SDP
+139,01.03.01.02.07.03,LOW Power and Fibre Networks  Fibre Cable Assembly  Access  Airstrip and Prepared Ground: Delivery
+140,01.03.01.02.07.06,LOW Network Activity Management
+141,01.03.01.02.07.07,Low Network Delivery - NMGR Hardware
+142,01.03.01.02.07.08,Fibre cabling and connectivity in Low CPF
+143,01.03.02,Low Aperture Array
+144,01.03.02.01,Low Array Activity Management
+145,01.03.02.02,Low Array Delivery
+146,01.03.02.02.01,Low Field Node
+147,01.03.02.02.01.01,Low Field Node Deployment
+148,01.03.02.02.01.02,Low Antenna Assembly
+149,01.03.02.02.01.03,Low Antenna Assembly subcontract
+150,01.03.02.02.02,Signal Processing Sub-system
+151,01.03.02.02.02.01,SPS Cabinet (populated)
+152,01.03.02.02.02.02,SPS Network Infrastructure
+153,01.03.02.02.02.03,SPS & MCCS installation work in CPF/RPF
+154,01.03.02.02.02.04,SPS & MCCS integration at ITF
+155,01.03.02.02.03,Monitor  Control and Calibration Sub-system (MCCS)
+156,01.03.02.02.03.02,MCCS LMC Infrastructure
+157,01.03.03,LOW Synchronisation & Timing
+158,01.03.03.01,LOW Synchronisation & Timing: Activity Management
+159,01.03.03.02,LOW Synchronisation & Timing: Clocks Delivery
+160,01.03.03.02.01,LOW Synchronisation & Timing: Clocks Delivery
+161,01.03.03.02.02,LOW  Synchronisation & Timing: Maser Delivery
+162,01.03.03.04,LOW Synchronisation and Timing: Timing Delivery
+163,01.03.03.04.01,LOW FRQ Distribution System
+164,01.03.03.04.02,LOW UTC Distribution
+165,01.03.04,LOW CSP
+166,01.03.04.01,LOW CSP Activity Management
+167,01.03.04.02,LOW Correlator Beamformer Delivery
+168,01.03.05,AU Hosting Agreement Activities
+169,01.03.05.01,AUS SPC Activities
+170,01.03.05.02,AUS EOC Activities
+171,01.03.05.03,AUS SOC Activities
+172,01.03.05.04,AUS Power Supply
+173,01.03.05.05,AUS Permanent Accommodation Facility
+174,01.03.06,LOW System ITF Establishment and Operation Support
+175,01.03.07,LOW Computing and Networking Hardware Procurement
+176,01.03.07.01,LOW Science Data Handling and Processing Hardware
+177,01.03.07.02,LOW Non Image Processing - PSS Hardware
+178,01.03.07.03,LOW Non Image Processing - PST Hardware
+179,01.03.07.04,LOW Observation Management and Controls Hardware
+180,01.03.07.06,LOW Operations Computers
+181,01.03.07.07,LOW MCCS Hardware
+182,01.03.07.08,LOW SAT LMC Hardware
+183,01.03.09,System AIV-Low
+184,01.03.10,LOW Science Commissioning
+185,01.03.11,LOW Science Verification Support
+186,01.04,Observatory Computing and Software
+187,01.04.01,Science Data Handling and Processing
+188,01.04.01.01,Science Data Handling and Processing Program Support
+189,01.04.01.02,Science Data Handling and Processing Services development
+190,01.04.01.03,Science Data Handling and Processing Execution Frameworks development
+191,01.04.01.04,Science Data Handling and Processing Core development
+192,01.04.01.05,Non Image Processing - PSS software package development
+193,01.04.01.06,Non Image Processing - PST software package development
+194,01.04.02,Observation Management and Controls
+195,01.04.02.01,Observation Management & Controls Program Support
+196,01.04.02.02,Observation Management & Controls - AAA software package development
+197,01.04.02.03,Observation Management & Controls - Enabling systems software package development
+198,01.04.02.04,Observation Management & Controls - OSO software package development
+199,01.04.02.05,Observation Management & Controls - TMC software package development
+200,01.04.02.06,Observation Management & Controls - Services software package development
+201,01.04.02.07,Observation Management & Controls - LINFRA software package development
+202,01.04.02.08,Local Monitor & Control (LMC) software package development
+203,01.04.02.08.01,Infra LMC Development
+204,01.04.02.08.02,Dish LMC Development
+205,01.04.02.08.03,MeerKAT Dish LMC Development
+206,01.04.02.08.04,CSP LMC Development
+207,01.04.02.08.05,SAT LMC Development
+208,01.04.02.09,MCCS Software Development
+209,01.04.02.10,Network Delivery: NMGR Software Development
+210,01.04.03,HQ Computing and Networking Procurement
+211,01.04.03.01,Common Development HW
+212,01.04.03.02,HQ Operations Computers
+213,01.04.04,HQ Software Deployment Support and Training
+214,01.04.04.01,Common support and training
+215,01.04.04.02,NMGR support and training
