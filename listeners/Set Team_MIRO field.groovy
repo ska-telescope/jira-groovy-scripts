@@ -25,39 +25,70 @@ def labelMgr = ComponentAccessor.getComponent(LabelManager)
 Issue issue = event.issue
 
 if (issue.getIssueType().getName() == "Feature" || issue.getIssueType().getName() == "Enabler" || issue.getIssueType().getName() == "Capability" || 
-    issue.getIssueType().getName() == "Spike" || issue.getIssueType().getName() == "Objective" || issue.getIssueType().getName() == "SAFe Risk" || 
-    issue.getIssueType().getName() == "Dependency") {
+    issue.getIssueType().getName() == "Spike" || issue.getIssueType().getName() == "Objective" || issue.getIssueType().getName() == "PI Risk" || 
+    issue.getIssueType().getName() == "Dependency" || issue.getIssueType().getName() == "Activity" || issue.getIssueType().getName() == "Dependency") {
     
     logger.info("Found feature, capability etc")
     
     CustomField agileTeamCf = customFieldManager.getCustomFieldObject(12302) // "Agile Team(s)"
-    CustomField teamsCf = customFieldManager.getCustomFieldObject(12806) // "Teams"
-    CustomField sharedCf = customFieldManager.getCustomFieldObject(13402) // "Shared Teams"
-    
+    CustomField teamsCf = customFieldManager.getCustomFieldObject(14100) // "Teams"
+    CustomField pdtCf = customFieldManager.getCustomFieldObject(11947) // "PDT(s)"
+    CustomField dependsOnCf = customFieldManager.getCustomFieldObject(11701) // "Depends On"
+   
     String destLabels = "";
     String currLabels = "";
     
-    int shares=0
     int teams=0
 	    
-    if (agileTeamCf && teamsCf && sharedCf) {
+    if (agileTeamCf && teamsCf && pdtCf && dependsOnCf) {
    
     	Set sourceLabels = (Set)agileTeamCf.getValue(issue); 
         currLabels = teamsCf.getValue(issue)
-        if (sharedCf.getValue(issue)) {
-	        shares = (int)sharedCf.getValue(issue);
+         
+        if (sourceLabels) {
+   
+            for (String label : sourceLabels) {
+
+                if (label.toUpperCase().contains("TEAM_")){
+                     destLabels = destLabels + label.substring(5) + " "
+                }
+            }
         }
+        
+        sourceLabels = (Set)pdtCf.getValue(issue); 
         
         if (sourceLabels) {
    
             for (String label : sourceLabels) {
 
-                if (label.contains("Team_")){
-                    teams++
-                    destLabels = destLabels + label.substring(5) + " "
+                if (label.toUpperCase().contains("PDT_")){
+                    destLabels = destLabels + label.substring(4) + " "
+                } else
+                {
+                    destLabels = destLabels + label + " "
                 }
             }
         }
+        
+        sourceLabels = (Set)dependsOnCf.getValue(issue); 
+        
+        if (sourceLabels) {
+   
+            for (String label : sourceLabels) {
+
+                if (label.toUpperCase().contains("PDT_")){
+                    destLabels = destLabels + label.substring(4) + " "
+                } 
+                else if (label.toUpperCase().contains("TEAM_")){
+                    destLabels = destLabels + label.substring(5) + " "
+                } 
+                else
+                {
+                    destLabels = destLabels + label + " "
+                }
+            }
+        }
+
         
         if (!currLabels) {
             currLabels = ""
@@ -65,10 +96,8 @@ if (issue.getIssueType().getName() == "Feature" || issue.getIssueType().getName(
         
         logger.info("Destination Labels: "+destLabels)
         logger.info("Current Labels: "+currLabels)
-        logger.info("Agiles Team found "+teams)
-        logger.info("Current shares found "+shares)
         
-        if (currLabels.equals(destLabels) && teams.equals(shares)) {
+        if (currLabels.equals(destLabels)) {
             logger.info("No update required")
         }
         else {
@@ -79,7 +108,6 @@ if (issue.getIssueType().getName() == "Feature" || issue.getIssueType().getName(
         	MutableIssue mutableIssue = issueManager.getIssueObject(issue.id) as MutableIssue
 
         	mutableIssue.setCustomFieldValue(teamsCf, destLabels)
-            //mutableIssue.setCustomFieldValue(sharedCf,(Double)teams)  
 
             def authContext = ComponentAccessor.jiraAuthenticationContext
             def user = authContext.getLoggedInUser()
