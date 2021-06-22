@@ -29,10 +29,24 @@ except ValueError:
 	days = 30
 	input("Press Enter to continue.")
 
+# load wbs code csv file
+df = pd.read_csv('wbs.csv')
+
 # set up the JIRA issue query. This is JQL and will be sent to JIRA.
 components = " AND component not in ('TBD') "
 query = "project=RM AND status in ('Active Risk/Opportunity', 'Subordinated', 'Proposed', 'Retired', 'Realized')" + "ORDER BY cf[12933]"
 query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" + "ORDER BY cf[12900]"
+
+
+def wbs_codes(indexes):
+	wbs=""
+
+	if (indexes != None):
+
+		for i in indexes:
+			df1 = df.query('Id=='+i)
+			wbs=wbs+'['+df1.iat[0,1]+']'
+	return wbs
 
 def connect():
 	# establish JIRA connection
@@ -103,7 +117,7 @@ def analyze(issues,issues_mit,jira):
 			'Random Period':issues[i].fields.customfield_12938, #mapped from 13111
 			'Probability Weighted Exposure (€K)':issues[i].fields.customfield_12906, #mapped from 14809
 			'Probability Weighted Exposure (€K) After Mitigation':PWEa,
-			'WBS':issues[i].fields.customfield_13802, #mapped from 12914
+			'WBS':wbs_codes(issues[i].fields.customfield_13802), #mapped from 12914
 			'Proposed Management Response':issues[i].fields.customfield_12932, #mapped from 13501
 			'score':int(float(issues[i].fields.customfield_12918)), #mapped from 13900
 			'JIRA ID (Parent)':id_p,
