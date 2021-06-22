@@ -103,7 +103,7 @@ def analyze(issues,issues_mit,jira):
 			'Random Period':issues[i].fields.customfield_12938, #mapped from 13111
 			'Probability Weighted Exposure (€K)':issues[i].fields.customfield_12906, #mapped from 14809
 			'Probability Weighted Exposure (€K) After Mitigation':PWEa,
-			'WBS':issues[i].fields.customfield_12902, #mapped from 12914
+			'WBS':issues[i].fields.customfield_13802, #mapped from 12914
 			'Proposed Management Response':issues[i].fields.customfield_12932, #mapped from 13501
 			'score':int(float(issues[i].fields.customfield_12918)), #mapped from 13900
 			'JIRA ID (Parent)':id_p,
