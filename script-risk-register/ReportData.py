@@ -30,7 +30,13 @@ except ValueError:
 	input("Press Enter to continue.")
 
 # load wbs code csv file
-df = pd.read_csv('wbs.csv')
+
+try:
+	df = pd.read_csv('../jira-database-files/wbs.csv')
+except (FileNotFoundError, IOError):
+	print("WARNING: Expected file ../jira-database-files/wbs.csv not found or could not be opened")
+	df = None
+
 
 # set up the JIRA issue query. This is JQL and will be sent to JIRA.
 components = " AND component not in ('TBD') "
@@ -41,11 +47,15 @@ query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" +
 def wbs_codes(indexes):
 	wbs=""
 
-	if (indexes != None):
+	if (indexes == None): 
+		return wbs
 
-		for i in indexes:
-			df1 = df.query('Id=='+i)
-			wbs=wbs+'['+df1.iat[0,1]+']'
+	if (df.empty):
+		return "Unmapped"
+
+	for i in indexes:
+		df1 = df.query('Id=='+i)
+		wbs=wbs+'['+df1.iat[0,1]+']'
 	return wbs
 
 def connect():
