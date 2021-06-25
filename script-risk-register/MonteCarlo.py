@@ -23,7 +23,7 @@ password = getpass.getpass(prompt="Please enter your Jira password: ")
 # Note that you'll need to have numpy, matplotlib, pylab, and jira packages installed (all are available on pip)
 
 if platform.system() == 'Windows':
-	locale.setlocale( locale.LC_ALL, '' )
+	locale.setlocale( locale.LC_MONETARY, 'fr-FR' )
 else:
 	locale.setlocale( locale.LC_ALL, 'en_IE.UTF-8' )
 
