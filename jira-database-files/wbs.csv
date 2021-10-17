@@ -2,7 +2,7 @@ Id,Code,Description
 1,01,Square Kilometre Array
 2,01.01,Project Office
 3,01.01.01,Programme Director Office
-4,01.01.02,Project Management  Safety and Assurance
+4,01.01.02,Project Management Safety and Assurance
 5,01.01.02.01,Project Management
 6,01.01.02.02,Project Control
 7,01.01.02.03,Project Safety
@@ -16,7 +16,7 @@ Id,Code,Description
 15,01.01.05.04,SKA Software Australian Local Deployment Support and Training
 16,01.01.05.05,SKA Software South African Local Deployment Support and Training
 17,01.01.05.06,SKA Software UK Local Deployment Support and Training
-18,01.01.05.07,SKA SAFe Implementation  Co-ordination and Support
+18,01.01.05.07,DEPRECATED - SKA SAFe Implementation  Co-ordination and Support
 19,01.01.06,Construction Consultancy
 20,01.01.08,Configuration Management
 21,01.02,MID Telescope
@@ -30,9 +30,9 @@ Id,Code,Description
 29,01.02.01.02.03,MID Communications: Delivery
 30,01.02.01.02.04,MID Site Surveys: Delivery
 31,01.02.01.02.05,MID Site Monitoring: Delivery
-32,01.02.01.02.05.01,MID Weather  Visual & STI Monitoring Stations: Delivery
+32,01.02.01.02.05.01,MID Weather Visual & STI Monitoring Stations: Delivery
 33,01.02.01.02.05.02,MID RFI Monitoring Stations: Delivery
-34,01.02.01.02.06,MID Infrastructure Maintenance Vehicles: Delivery   
+34,01.02.01.02.06,MID Infrastructure Maintenance Vehicles: Delivery
 35,01.02.01.02.07,MID Array Infrastructure: Delivery
 36,01.02.01.02.07.01,MID Network Delivery: DDBH
 37,01.02.01.02.07.02,MID Network Delivery NSDN for MeerKAT Dishes
@@ -40,13 +40,13 @@ Id,Code,Description
 39,01.02.01.02.07.04,MID Network Delivery: CSP-SDP
 40,01.02.01.02.07.05,MID Power & Fibre Reticulation Networks: Delivery
 41,01.02.01.02.07.06,MID Access: Delivery
-42,01.02.01.02.07.07,MID Antenna Foundations: Delivery 
+42,01.02.01.02.07.07,MID Antenna Foundations: Delivery
 43,01.02.01.02.07.08,MID Network Activity Management
 44,01.02.01.02.07.09,MID Network Delivery - NMGR Hardware
 45,01.02.01.02.07.10,Fibre cabling and connectivity in Mid CPF
 46,01.02.01.02.08,MID Power: Delivery
-47,01.02.01.02.08.01,MID Site Power Facility & Statcom unit: Delivery
-48,01.02.01.02.08.02,MID ESKOM Karoo Substation: Delivery
+47,01.02.01.02.08.01,MID Site Power Facility: Delivery
+48,01.02.01.02.08.02,MID Power Station PV Prototyping and RFI Shielding
 49,01.02.01.02.08.03,MID RFI Shielding & PV Power: Delivery
 50,01.02.01.02.10,MID Building Management System: Delivery
 51,01.02.01.02.11,MID Security: Delivery
@@ -55,8 +55,8 @@ Id,Code,Description
 54,01.02.02.01,MID Array Dish Activity Management
 55,01.02.02.02,MID Array Dish Delivery
 56,01.02.02.02.01,Dish Structure: Delivery
-57,01.02.02.02.01.01,Management  AIV  Main Structure
-58,01.02.02.02.01.02,Drive System
+57,01.02.02.02.01.01,Management AIV Dish Structure
+58,01.02.02.02.01.02,DEPRECATED - Drive System
 59,01.02.02.02.01.03,Feed Indexer
 60,01.02.02.02.01.04,Sub Reflector
 61,01.02.02.02.01.05,Shielded Cabinet
@@ -70,8 +70,8 @@ Id,Code,Description
 69,01.02.02.02.04.03,Band 05 Low Noise Amplifiers
 70,01.02.02.02.05,Vacuum System: Delivery
 71,01.02.02.02.06,Cryo System: Delivery
-72,01.02.02.02.06.01,Cold Head and Compressor Delivery
-73,01.02.02.02.06.02,Cryogenic Lines
+72,01.02.02.02.06.01,DEPRECATED - Cold Head and Compressor Delivery
+73,01.02.02.02.06.02,DEPRECATED - Cryogenic Lines
 74,01.02.02.02.07,SPFRx Delivery
 75,01.02.02.02.07.01,SPFRx Activity Management
 76,01.02.02.02.07.02,SPFRx123 Delivery
@@ -84,7 +84,7 @@ Id,Code,Description
 83,01.02.02.04,MeerKAT Extension Dish Products
 84,01.02.02.04.01,MID Array Dish Activity Management MK+
 85,01.02.02.04.02,Dish Structure MK+ Germany: Delivery
-86,01.02.02.04.03,Dish Structure MK+ China: Delivery
+86,01.02.02.04.03,DEPRECATED - Dish Structure MK+ China: Delivery
 87,01.02.02.04.04,Band 02 SPF MK+: Delivery
 88,01.02.02.04.05,Vacuum System MK+: Delivery
 89,01.02.02.04.06,Cryo System MK+: Delivery
@@ -94,14 +94,14 @@ Id,Code,Description
 93,01.02.03,MID Synchronisation & Timing
 94,01.02.03.01,MID Synchronisation & Timing: Activity Management
 95,01.02.03.02,MID Synchronisation & Timing: Clocks Delivery
-96,01.02.03.02.01,MID Synchronisation & Timing: Clocks Delivery
+96,01.02.03.02.01,MID Synchronisation & Timing: Timescale Delivery
 97,01.02.03.02.02,MID Synchronisation & Timing: Maser Delivery
 98,01.02.03.04,MID Synchronisation and Timing: Timing Delivery
 99,01.02.03.04.01,MID Frequency Distribution System
 100,01.02.03.04.01.01,MID Frequency Distribution System (UK Contribution)
 101,01.02.03.04.01.02,MID Frequency Distribution System (AUS Contribution)
-102,01.02.03.04.02,MID UTC Distribution
-103,01.02.03.04.03,SAT Components: MeerKAT Delivery and Integration
+102,01.02.03.04.02,MID UTC Distribution System
+103,01.02.03.04.03,DEPRECATED - SAT Components: MeerKAT Delivery and Integration
 104,01.02.04,MID CSP
 105,01.02.04.01,MID CSP Activity Management
 106,01.02.04.02,MID Correlator Beamformer Delivery
@@ -128,16 +128,16 @@ Id,Code,Description
 127,01.03.01.02.02,LOW Site Buildings: Delivery
 128,01.03.01.02.02.01,LOW Central Processing Facility: Delivery
 129,01.03.01.02.02.02,LOW Remote Processor Facility: Delivery
-130,01.03.01.02.02.03,LOW Accommodation Temporary: Delivery
+130,01.03.01.02.02.03,LOW Temporary Accommodation: Delivery
 131,01.03.01.02.02.04,LOW Temporary CPF
 132,01.03.01.02.03,LOW Communications: Delivery
 133,01.03.01.02.04,LOW Site Surveys: Delivery
 134,01.03.01.02.05,LOW Site Monitoring: Delivery
-135,01.03.01.02.06,LOW Vehicles: Delivery  
+135,01.03.01.02.06,LOW Vehicles: Delivery
 136,01.03.01.02.07,LOW Array Infrastructure
 137,01.03.01.02.07.01,LOW Network Delivery: NSDN
 138,01.03.01.02.07.02,LOW Network Delivery: CSP-SDP
-139,01.03.01.02.07.03,LOW Power and Fibre Networks  Fibre Cable Assembly  Access  Airstrip and Prepared Ground: Delivery
+139,01.03.01.02.07.03,LOW Power and Fibre Networks Fibre Cable Assembly Access Airstrip and Prepared Ground: Delivery
 140,01.03.01.02.07.06,LOW Network Activity Management
 141,01.03.01.02.07.07,Low Network Delivery - NMGR Hardware
 142,01.03.01.02.07.08,Fibre cabling and connectivity in Low CPF
@@ -149,20 +149,20 @@ Id,Code,Description
 148,01.03.02.02.01.02,Low Antenna Assembly
 149,01.03.02.02.01.03,Low Antenna Assembly subcontract
 150,01.03.02.02.02,Signal Processing Sub-system
-151,01.03.02.02.02.01,SPS Cabinet (populated)
-152,01.03.02.02.02.02,SPS Network Infrastructure
+151,01.03.02.02.02.01,SPS Cabinet
+152,01.03.02.02.02.02,SPS Network Infrastructure (COTS)
 153,01.03.02.02.02.03,SPS & MCCS installation work in CPF/RPF
 154,01.03.02.02.02.04,SPS & MCCS integration at ITF
-155,01.03.02.02.03,Monitor  Control and Calibration Sub-system (MCCS)
-156,01.03.02.02.03.02,MCCS LMC Infrastructure
+155,01.03.02.02.03,DEPRECATED - Monitor  Control and Calibration Sub-system (MCCS)
+156,01.03.02.02.03.02,DEPRECATED - MCCS LMC Infrastructure
 157,01.03.03,LOW Synchronisation & Timing
 158,01.03.03.01,LOW Synchronisation & Timing: Activity Management
 159,01.03.03.02,LOW Synchronisation & Timing: Clocks Delivery
-160,01.03.03.02.01,LOW Synchronisation & Timing: Clocks Delivery
-161,01.03.03.02.02,LOW  Synchronisation & Timing: Maser Delivery
+160,01.03.03.02.01,LOW Synchronisation & Timing: Timescale Delivery
+161,01.03.03.02.02,LOW Synchronisation & Timing: Maser Delivery
 162,01.03.03.04,LOW Synchronisation and Timing: Timing Delivery
-163,01.03.03.04.01,LOW FRQ Distribution System
-164,01.03.03.04.02,LOW UTC Distribution
+163,01.03.03.04.01,LOW Frequency Distribution System
+164,01.03.03.04.02,LOW UTC Distribution System
 165,01.03.04,LOW CSP
 166,01.03.04.01,LOW CSP Activity Management
 167,01.03.04.02,LOW Correlator Beamformer Delivery
@@ -184,33 +184,85 @@ Id,Code,Description
 183,01.03.09,System AIV-Low
 184,01.03.10,LOW Science Commissioning
 185,01.03.11,LOW Science Verification Support
-186,01.04,Observatory Computing and Software
-187,01.04.01,Science Data Handling and Processing
-188,01.04.01.01,Science Data Handling and Processing Program Support
-189,01.04.01.02,Science Data Handling and Processing Services development
-190,01.04.01.03,Science Data Handling and Processing Execution Frameworks development
-191,01.04.01.04,Science Data Handling and Processing Core development
-192,01.04.01.05,Non Image Processing - PSS software package development
-193,01.04.01.06,Non Image Processing - PST software package development
-194,01.04.02,Observation Management and Controls
-195,01.04.02.01,Observation Management & Controls Program Support
-196,01.04.02.02,Observation Management & Controls - AAA software package development
-197,01.04.02.03,Observation Management & Controls - Enabling systems software package development
-198,01.04.02.04,Observation Management & Controls - OSO software package development
-199,01.04.02.05,Observation Management & Controls - TMC software package development
-200,01.04.02.06,Observation Management & Controls - Services software package development
-201,01.04.02.07,Observation Management & Controls - LINFRA software package development
-202,01.04.02.08,Local Monitor & Control (LMC) software package development
-203,01.04.02.08.01,Infra LMC Development
-204,01.04.02.08.02,Dish LMC Development
-205,01.04.02.08.03,MeerKAT Dish LMC Development
-206,01.04.02.08.04,CSP LMC Development
-207,01.04.02.08.05,SAT LMC Development
-208,01.04.02.09,MCCS Software Development
-209,01.04.02.10,Network Delivery: NMGR Software Development
-210,01.04.03,HQ Computing and Networking Procurement
-211,01.04.03.01,Common Development HW
-212,01.04.03.02,HQ Operations Computers
-213,01.04.04,HQ Software Deployment Support and Training
-214,01.04.04.01,Common support and training
-215,01.04.04.02,NMGR support and training
+186,01.04,DEPRECATED - Observatory Computing and Software
+187,01.04.01,DEPRECATED - Science Data Handling and Processing
+188,01.04.01.01,DEPRECATED - Science Data Handling and Processing Program Support
+189,01.04.01.02,DEPRECATED - Science Data Handling and Processing Services development
+190,01.04.01.03,DEPRECATED - Science Data Handling and Processing Execution Frameworks development
+191,01.04.01.04,DEPRECATED - Science Data Handling and Processing Core development
+192,01.04.01.05,DEPRECATED - Non Image Processing - PSS software package development
+193,01.04.01.06,DEPRECATED - Non Image Processing - PST software package development
+194,01.04.02,DEPRECATED - Observation Management and Controls
+195,01.04.02.01,DEPRECATED - Observation Management & Controls Program Support
+196,01.04.02.02,DEPRECATED - Observation Management & Controls - AAA software package development
+197,01.04.02.03,DEPRECATED - Observation Management & Controls - Enabling systems software package development
+198,01.04.02.04,DEPRECATED - Observation Management & Controls - OSO software package development
+199,01.04.02.05,DEPRECATED - Observation Management & Controls - TMC software package development
+200,01.04.02.06,DEPRECATED - Observation Management & Controls - Services software package development
+201,01.04.02.07,DEPRECATED - Observation Management & Controls - LINFRA software package development
+202,01.04.02.08,DEPRECATED - Local Monitor & Control (LMC) software package development
+203,01.04.02.08.01,DEPRECATED - Infra LMC Development
+204,01.04.02.08.02,DEPRECATED - Dish LMC Development
+205,01.04.02.08.03,DEPRECATED - MeerKAT Dish LMC Development
+206,01.04.02.08.04,DEPRECATED - CSP LMC Development
+207,01.04.02.08.05,DEPRECATED - SAT LMC Development
+208,01.04.02.09,DEPRECATED - MCCS Software Development
+209,01.04.02.10,DEPRECATED - Network Delivery: NMGR Software Development
+210,01.04.03,DEPRECATED - HQ Computing and Networking Procurement
+211,01.04.03.01,DEPRECATED - Common Development HW
+212,01.04.03.02,DEPRECATED - HQ Operations Computers
+213,01.04.04,DEPRECATED - HQ Software Deployment Support and Training
+214,01.04.04.01,DEPRECATED - Common support and training
+215,01.04.04.02,DEPRECATED - NMGR support and training
+216,01.01.05.08,SKA Common Hardware and HQ Operations
+217,01.01.07,MID Site Management
+218,01.01.09,LOW Site Management
+219,01.02.01.01.01,MID Infrastructure Activity Management Zutari
+220,01.02.01.01.02,MID Infrastructure Activity Management SARAO
+221,01.02.02.02.01.06,Dish Structure AA0.5: Delivery
+222,01.02.02.02.02.01,Band 01 SPF: Delivery Tier1
+223,01.02.02.02.02.02,Band 01 SPF: Delivery Feed Horn Manufacture
+224,01.02.02.02.02.03,Band 01 SPF: Delivery Feed Package Control Electronics
+225,01.02.02.02.07.05,MID SPFRx Industrialisation Support
+226,01.02.02.02.07.06,SPFRX RXPU SW/FW Delivery
+227,01.02.03.03,MID Synchronisation and Timing: Activity Management (UoM)
+228,01.02.04.03,MID TDC Contract
+229,01.02.09.01,System AIV-MID South Africa
+230,01.02.09.03,System AIV-MID Portugal
+231,01.03.01.02.08,Main Road and Emergency Airstrip
+232,01.03.01.02.09,AARNET Fibre Delivery
+233,01.03.02.01.01,Low Station Management and Integration
+234,01.03.02.01.02,Low Station Management and Integration subcontract
+235,01.03.02.02.01.04,Low Power and Signal Distribution
+236,01.03.02.02.01.05,Low Power and Signal Distribution subcontract 1
+237,01.03.02.02.01.06,Low Power and Signal Distribution subcontract 2
+238,01.03.02.02.01.07,PaSD Design & Services Contract
+239,01.03.02.02.02.01.01,SPS Cabinet TPM Management (15%)
+240,01.03.02.02.02.01.02,Population of Cabinet (85%)
+241,01.03.02.02.02.05,"TPMs, India (In-kind)"
+242,01.03.03.03,LOW Synchronisation and Timing: Activity Management (UoM)
+243,01.03.09.01,System AIV-Low Australia
+244,01.03.09.03,System AIV-Low Netherlands
+245,01.05,Software Development Per Country
+246,01.05.01,UK Software Development
+247,01.05.01.01,UK Software In-kind
+248,01.05.01.02,UK Software Cash
+249,01.05.02,India Software Development In-kind
+250,01.05.03,Australia Software Development Cash
+251,01.05.04,Netherlands Software Development Cash
+252,01.05.05,South Africa Software Development
+253,01.05.05.01,South Africa Software In-kind
+254,01.05.05.02,South Africa Software Cash
+255,01.05.06,Italy Software Development Cash
+256,01.05.07,Portugal Software Development
+257,01.05.07.01,Portugal Software In-kind
+258,01.05.07.02,Portugal Software Cash
+259,01.05.08,China Software Development Cash
+260,01.05.10,Unallocated Software Budget
+261,01.06,Software Development Per Milestone
+262,01.06.01,AA0.5 Software Development
+263,01.06.02,AA1 Software Development
+264,01.06.03,AA2 Software Development
+265,01.06.04,AA3 Software Development
+266,01.06.05,AA4 Software Development
+267,01.07,SKARR MC80 Contingency
