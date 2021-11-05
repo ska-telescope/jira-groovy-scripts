@@ -16,7 +16,7 @@ Id,Code,Description
 15,01.01.05.04,SKA Software Australian Local Deployment Support and Training
 16,01.01.05.05,SKA Software South African Local Deployment Support and Training
 17,01.01.05.06,SKA Software UK Local Deployment Support and Training
-18,01.01.05.07,DEPRECATED - SKA SAFe Implementation  Co-ordination and Support
+18,01.01.05.07,DEPRECATED - SKA SAFe Implementation Co-ordination and Support
 19,01.01.06,Construction Consultancy
 20,01.01.08,Configuration Management
 21,01.02,MID Telescope
@@ -153,7 +153,7 @@ Id,Code,Description
 152,01.03.02.02.02.02,SPS Network Infrastructure (COTS)
 153,01.03.02.02.02.03,SPS & MCCS installation work in CPF/RPF
 154,01.03.02.02.02.04,SPS & MCCS integration at ITF
-155,01.03.02.02.03,DEPRECATED - Monitor  Control and Calibration Sub-system (MCCS)
+155,01.03.02.02.03,DEPRECATED - Monitor Control and Calibration Sub-system (MCCS)
 156,01.03.02.02.03.02,DEPRECATED - MCCS LMC Infrastructure
 157,01.03.03,LOW Synchronisation & Timing
 158,01.03.03.01,LOW Synchronisation & Timing: Activity Management
