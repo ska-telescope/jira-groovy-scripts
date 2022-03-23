@@ -1,0 +1,24 @@
+﻿id,code,description
+1,SCO1,"Scope change to introduce new capability (i.e., creep)"
+2,SCO2,Scope change when unexpected issue uncovered or required activities were missed in baseline plan
+3,SCO3,Scope change because interfaces between subsystems not correct or incomplete
+4,SCO4,Software performance does not meet requirements
+5,SCO5,Hardware does not meet specifications
+6,SCO6,Defects or performance issues discovered during system level integration
+7,SCO7,"Scope change required because of dependency on external factors (eg, local building code change)"
+8,SCH1,Work more difficult than expected
+9,SCH2,New legal or regulatory issues make work more difficult
+10,SCH3,Baseline milestone dates not reasonable
+11,SCH4,Specifications or data not available
+12,SCH5,Infrastructure not ready as planned in schedule
+13,SCH6,Activity duration underestimated in baseline plan
+14,SCH7,Parts not delivered on time
+15,SCH8,Critical equipment not available when needed
+16,SCH9,Late decisions or approvals either internal or external
+17,RES1,Insufficient budget to complete
+18,RES2,Team productivity low (not the proper skill set; or lack of cohesion; or lack of communications)
+19,RES3,Staff available late
+20,RES4,Late delivery by vendor
+21,RES5,Loss of staff
+22,RES6,Vendor contracts placed late
+23,RES7,Slip due to bottleneck in staff or equipment
