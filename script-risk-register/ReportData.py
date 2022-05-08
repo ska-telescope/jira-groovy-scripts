@@ -1,3 +1,4 @@
+import sys, getopt
 import pandas as pd
 from datetime import datetime, timedelta, timezone
 import getpass
@@ -270,7 +271,6 @@ def analyze(issues,issues_mit,jira,days):
 	ws['E1'].alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center')
 	wb.save(filename=filename)
 
-	input("\nPress Enter to close.")
 	return
 
 def main(argv):
@@ -308,13 +308,13 @@ if __name__ == "__main__":
    if str(sy[0])=='':
    	  # prompt for Jira username
       username = input("Please enter your Jira username: ")
-   else
+   else:
       username = str(sy[0])
 
    if str(sy[1])=='':
       # prompt for Jira password
       password = getpass.getpass(prompt="Please enter your Jira password: ")
-   else
+   else:
       password = str(sy[1])
 
    print('\n\r Username: %s' %username)
@@ -326,15 +326,15 @@ if __name__ == "__main__":
    aztz = pytz.timezone('Europe/London')
 
 	# load wbs code csv file
-	try:
-		df = pd.read_csv('../jira-database-files/wbs.csv')
-	except (FileNotFoundError, IOError):
-		print("WARNING: Expected file ../jira-database-files/wbs.csv not found or could not be opened")
-		df = None
+   try:
+      df = pd.read_csv('../jira-database-files/wbs.csv')
+   except (FileNotFoundError, IOError):
+      print("WARNING: Expected file ../jira-database-files/wbs.csv not found or could not be opened")
+      df = None
 
 	# set up the JIRA issue query. This is JQL and will be sent to JIRA.
-	components = " AND component not in ('TBD') "
-	query = "project=RM AND status in ('Active Risk/Opportunity', 'Subordinated', 'Proposed', 'Retired', 'Realized')" + "ORDER BY cf[12933]"
-	query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" + "ORDER BY cf[12900]"
+   components = " AND component not in ('TBD') "
+   query = "project=RM AND status in ('Active Risk/Opportunity', 'Subordinated', 'Proposed', 'Retired', 'Realized')" + "ORDER BY cf[12933]"
+   query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" + "ORDER BY cf[12900]"
 
-    connect(username,password,query,query_mit,int(sy[2]))
+   connect(username,password,query,query_mit,int(sy[2]))
