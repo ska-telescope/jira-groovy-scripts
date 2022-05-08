@@ -396,6 +396,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	pylab.title('%s  Contingency spend curve in as-spent K-EUR'%projectname)
 	ax1.set_xlabel('Date')
 	ax1.set_ylabel('Contingency Balance (as-spent K€)')
+	fig4.savefig('fig4.png')
 	###################################################################
 	###########    End of spend curve plot      ###############
 	###################################################################
@@ -519,6 +520,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	pylab.text(hold50+1,52,textstring2 ) # 50% value
 	pylab.text(hold80+1,22,textstring3 ) # 80% value
 	ax.set_aspect('auto')
+	fig.savefig('fig2.png')
 	##
 	##                                                                            Figure 3 subplot 1
 	##
@@ -537,6 +539,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	for label in labels:
 		label.set_rotation(45)
 	ax3.plot = hist(total_cost,bins=20)
+	fig.savefig('fig3.1.png')
 	##
 	##                                                                            Figure 3 subplot 2
 	##
@@ -550,6 +553,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	for label in labels:
 		label.set_rotation(45)
 	ax4.plot = hist(temp,bins=20)
+	fig.savefig('fig3.2.png')
 	plt.show()
 	sys.stdout = fhold
 
@@ -611,6 +615,7 @@ if __name__ == "__main__":
    print('\n\r Number of iterations: %d' %int(sy[2]))
    print('\n\r Annual escalation as a fraction: %s' %str(sy[3]))
    print('\n\r Subsystem: %s' %str(sy[4]))
+   print('\n\r Output File: %d' %int(sy[5]))
 
    if platform.system() == 'Windows':
       locale.setlocale( locale.LC_MONETARY, 'fr-FR' )
