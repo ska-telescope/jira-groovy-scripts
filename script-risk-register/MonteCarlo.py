@@ -12,21 +12,6 @@ from  matplotlib import pylab
 from pylab import *
 from jira import JIRA
 
-
-# prompt for Jira username
-username = input("Please enter your Jira username: ")
-
-# prompt for Jira password
-password = getpass.getpass(prompt="Please enter your Jira password: ")
-
-
-# Note that you'll need to have numpy, matplotlib, pylab, and jira packages installed (all are available on pip)
-
-if platform.system() == 'Windows':
-	locale.setlocale( locale.LC_MONETARY, 'fr-FR' )
-else:
-	locale.setlocale( locale.LC_ALL, 'en_IE.UTF-8' )
-
 def mybar(ax,x1,x2,y2):
 	Xbars = [[0., .3],[.7,.4]]
 	left,right = x1,x2
@@ -52,7 +37,7 @@ def xstr(s): # this is just to handle converting lists to strings when there mig
 		return ''
 	return str(s)
 
-def montecarlorisk(num_trials,annual_escalation,subsystem,output_file):
+def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,output_file):
 	## define output location; if variable output_file is true then output goes to test.txt in working directory
 	fhold = sys.stdout
 	if output_file:
@@ -572,24 +557,32 @@ def main(argv):
 	##########################################
 	#####  DEFAULT PARAMETER VALUES ##########
 	##########################################
-	num_trials = '500'  # default value if not given in command line
+	username = '' 				# default value if not given in command line
+	password = ''				# default value if not given in command line
+	num_trials = '500'  		# default value if not given in command line
 	annual_escalation = '.030'  # default for annual escalation
-	subsystem = 'ALL'  # default for subsystem
-	output_file = '0' # zero sends to terminal, 1 sends to file test.txt in working directory
+	subsystem = 'ALL'  			# default for subsystem
+	output_file = '0' 			# zero sends to terminal, 1 sends to file test.txt in working directory
 	##########################################
 	##########################################
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"hn:e:s:o:",["help","num_trials=","annual_escalation=","subsystem=","output_file="])
+		opts, args = getopt.getopt(sys.argv[1:],"hu:p:n:e:s:o:",["help","username","password","num_trials=","annual_escalation=","subsystem=","output_file="])
 	except getopt.GetoptError:
-		print('Usage: montecarlo_riskanalysis.py  -h <help> -n <num_trials> -e <annual_escalation> -s <subsystem> -o <output_file>')
+		print('Usage: montecarlo_riskanalysis.py  -h <help> -u <username> -p <password> -n <num_trials> -e <annual_escalation> -s <subsystem> -o <output_file>')
 	for ou, arg in opts:
 		if ou in ("-h","--help"):
 			print('\b\n Usage: montecarlo_riskanalysis.py   -h <help> -n <num_trials> -e <annual_escalation> -s <subsystem> -o <output_file> \b\n' + \
+			'\b\n [-u] jira username to access the risk register'+\
+			'\b\n [-p] jira password to access the risk register'+\
 			'\b\n [-n] number of trials is typically between 500 and 5000'+\
 			'\b\n [-e] escalation factor as fraction; e.g., enter 0.03 for 3% annual escalation'+\
 			'\b\n [-s] subsystem can be:  ALL, MID, LOW, OCS, PM'  +\
 			'\b\n [-o] if value is 1 then output goes to file in working directory named text.txt; if value is 0 output goes to python pane')
 			sys.exit()
+		elif ou in ("-u", "--username"):
+			username = arg
+		elif ou in ("-p", "--password"):
+			password = arg
 		elif ou in ("-n", "--num_trials"):
 			num_trials = arg
 		elif ou in ("-e", "--annual_escalation"):
@@ -598,12 +591,30 @@ def main(argv):
 			subsystem = arg
 		elif ou in ("-o", "--output_file"):
 			output_file = arg
-	return [num_trials,annual_escalation,subsystem,output_file]
+	return [username,password,num_trials,annual_escalation,subsystem,output_file]
 #################################################################################################
 if __name__ == "__main__":
-# parameter for montecarlorisk is the number of MC iterations.
    sy = main(sys.argv[2:])
-   print('\n\r Number of iterations: %d' %int(sy[0]))
-   print('\n\r Annual escalation as a fraction: %s' %str(sy[1]))
-   print('\n\r Subsystem: %s' %str(sy[2]))
-   montecarlorisk(int(sy[0]),float(sy[1]),str(sy[2]),int(sy[3]))
+
+   if str(sy[0])=='':
+   	  # prompt for Jira username
+      username = input("Please enter your Jira username: ")
+   else:
+      username = str(sy[0])
+
+   if str(sy[1])=='':
+      # prompt for Jira password
+      password = getpass.getpass(prompt="Please enter your Jira password: ")
+   else:
+      password = str(sy[1])
+
+   print('\n\r Number of iterations: %d' %int(sy[2]))
+   print('\n\r Annual escalation as a fraction: %s' %str(sy[3]))
+   print('\n\r Subsystem: %s' %str(sy[4]))
+
+   if platform.system() == 'Windows':
+      locale.setlocale( locale.LC_MONETARY, 'fr-FR' )
+   else:
+      locale.setlocale( locale.LC_ALL, 'en_IE.UTF-8' )
+
+   montecarlorisk(username,password,int(sy[2]),float(sy[3]),str(sy[4]),int(sy[5]))
