@@ -6,44 +6,6 @@ import pytz
 from jira import JIRA
 #import xlsxwriter
 
-present = datetime.now()
-trigger_months = present + timedelta(weeks=26)
-aztz = pytz.timezone('Europe/London')
-
-# this is the Excel filename that the tables will be written to
-output_file = 'output.xlsx'
-
-# prompt for Jira username
-username = input("Please enter your Jira username: ")
-
-# prompt for Jira password
-password = getpass.getpass(prompt="Please enter your Jira password: ")
-
-# prompt for how many days the report should go back
-days = 30
-daysIn = input("Please enter the days in the past the report should analyze (default 30): ")
-try:
-	days = int(daysIn)
-except ValueError:
-	print("Input is not an integer, defaulting to 30.\n")
-	days = 30
-	input("Press Enter to continue.")
-
-# load wbs code csv file
-
-try:
-	df = pd.read_csv('../jira-database-files/wbs.csv')
-except (FileNotFoundError, IOError):
-	print("WARNING: Expected file ../jira-database-files/wbs.csv not found or could not be opened")
-	df = None
-
-
-# set up the JIRA issue query. This is JQL and will be sent to JIRA.
-components = " AND component not in ('TBD') "
-query = "project=RM AND status in ('Active Risk/Opportunity', 'Subordinated', 'Proposed', 'Retired', 'Realized')" + "ORDER BY cf[12933]"
-query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" + "ORDER BY cf[12900]"
-
-
 def wbs_codes(indexes):
 	wbs=""
 
@@ -58,7 +20,7 @@ def wbs_codes(indexes):
 		wbs=wbs+'['+df1.iat[0,1]+']'
 	return wbs
 
-def connect():
+def connect(username,password,query,query_mit,days):
 	# establish JIRA connection
 
 	server = "https://jira.skatelescope.org/"
@@ -77,9 +39,9 @@ def connect():
 	print("\nQuerying JIRA with string: \n\n" + query_mit)
 	issues_mit= jira.search_issues(query_mit,maxResults=None)
 
-	analyze(issues,issues_mit,jira)
+	analyze(issues,issues_mit,jira,days)
 
-def analyze(issues,issues_mit,jira):
+def analyze(issues,issues_mit,jira,days):
 	print("\nReturned " + str(len(issues)) + " risk/opportunity issues.")
 	print("\nReturned " + str(len(issues_mit)) + " mitigation issues.")
 
@@ -273,7 +235,7 @@ def analyze(issues,issues_mit,jira):
 	#df['Trigger Date'] = df['Trigger Date'].dt.tz_localize(None)
 
 	book = openpyxl.load_workbook('R&O Report Template.xlsx')
-	filename = "Risk Report Data for " + str(datetime.now().year) + "-" + str(datetime.now().month) + ".xlsx"
+	filename = "Risk Report Data on " + str(datetime.now().year) + "-" + str(datetime.now().month) + "-" + str(datetime.now().day)+ ".xlsx"
 	writer = pd.ExcelWriter(filename, datetime_format='YYYY-MM-DD HH:MM:SS', engine='openpyxl')
 	writer.book = book
 	writer.sheets = dict((ws.title,ws) for ws in book.worksheets)
@@ -308,8 +270,71 @@ def analyze(issues,issues_mit,jira):
 	ws['E1'].alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center')
 	wb.save(filename=filename)
 
-
 	input("\nPress Enter to close.")
 	return
 
-connect()
+def main(argv):
+	##########################################
+	#####  DEFAULT PARAMETER VALUES ##########
+	##########################################
+	username = ''  				# default value if not given in command line
+	password = ''  				# default value if not given in command line
+	days = 30 					# default value if not given in command line
+	##########################################
+	##########################################
+	try:
+		opts, args = getopt.getopt(sys.argv[1:],"hu:p:d:o:",["help","username=","password=","days="])
+	except getopt.GetoptError:
+		print('Usage: ReportData.py  -h <help> -u <username> -p <password> -d <days>')
+	for ou, arg in opts:
+		if ou in ("-h","--help"):
+			print('\b\n Usage: ReportData.py   -h <help> -u <username> -p <password> -d <days>\b\n' + \
+			'\b\n [-u] jira username to access the risk register'+\
+			'\b\n [-p] jira password to access the risk register'+\
+			'\b\n [-d] number of days to report on')
+			sys.exit()
+		elif ou in ("-u", "--username"):
+			username = arg
+		elif ou in ("-p", "--password"):
+			password = arg
+		elif ou in ("-d", "--days"):
+			days = arg
+	return [username,password,days]
+
+#################################################################################################
+if __name__ == "__main__":
+   sy = main(sys.argv[2:])
+
+   if str(sy[0])=='':
+   	  # prompt for Jira username
+      username = input("Please enter your Jira username: ")
+   else
+      username = str(sy[0])
+
+   if str(sy[1])=='':
+      # prompt for Jira password
+      password = getpass.getpass(prompt="Please enter your Jira password: ")
+   else
+      password = str(sy[1])
+
+   print('\n\r Username: %s' %username)
+   print('\n\r Password: %s' %password)
+   print('\n\r Days: %d' %int(sy[2]))
+ 
+   present = datetime.now()
+   trigger_months = present + timedelta(weeks=26)
+   aztz = pytz.timezone('Europe/London')
+
+	# load wbs code csv file
+	try:
+		df = pd.read_csv('../jira-database-files/wbs.csv')
+	except (FileNotFoundError, IOError):
+		print("WARNING: Expected file ../jira-database-files/wbs.csv not found or could not be opened")
+		df = None
+
+	# set up the JIRA issue query. This is JQL and will be sent to JIRA.
+	components = " AND component not in ('TBD') "
+	query = "project=RM AND status in ('Active Risk/Opportunity', 'Subordinated', 'Proposed', 'Retired', 'Realized')" + "ORDER BY cf[12933]"
+	query_mit = "project=RM AND issueType = RM-Handling AND status != 'Unplanned'" + "ORDER BY cf[12900]"
+
+    connect(username,password,query,query_mit,int(sy[2]))
