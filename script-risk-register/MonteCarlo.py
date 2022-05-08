@@ -1,6 +1,6 @@
 import sys, getopt
 import numpy as np
-import datetime
+from datetime import datetime as dt
 import locale
 import platform
 import time
@@ -40,7 +40,7 @@ def xstr(s): # this is just to handle converting lists to strings when there mig
 def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,output_file):
 	## define output location; if variable output_file is true then output goes to test.txt in working directory
 	fhold = sys.stdout
-	datestr = str(datetime.now().year) + "-" + str(datetime.now().month) + "-" + str(datetime.now().day)
+	datestr = str(dt.now().year) + "-" + str(dt.now().month) + "-" + str(dt.now().day)
 	if output_file:
 		f = open('./output '+datestr+'.txt', 'w')
 		sys.stdout = f
@@ -555,7 +555,10 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 		label.set_rotation(45)
 	ax4.plot = hist(temp,bins=20)
 	fig.savefig('MonteCarlo - Histograms '+datestr+'.png')
-	plt.show()
+	if output_file:
+	   plt.close(fig)
+	else:
+	   plt.show()
 	sys.stdout = fhold
 
 def main(argv):
@@ -567,7 +570,7 @@ def main(argv):
 	num_trials = '500'  		# default value if not given in command line
 	annual_escalation = '.030'  # default for annual escalation
 	subsystem = 'ALL'  			# default for subsystem
-	output_file = '0' 			# zero sends to terminal, 1 sends to file test.txt in working directory
+	output_file = '0' 			# zero sends to terminal, 1 sends to file output.txt in working directory
 	##########################################
 	##########################################
 	try:
@@ -582,7 +585,7 @@ def main(argv):
 			'\b\n [-n] number of trials is typically between 500 and 5000'+\
 			'\b\n [-e] escalation factor as fraction; e.g., enter 0.03 for 3% annual escalation'+\
 			'\b\n [-s] subsystem can be:  ALL, MID, LOW, OCS, PM'  +\
-			'\b\n [-o] if value is 1 then output goes to file in working directory named text.txt; if value is 0 output goes to python pane')
+			'\b\n [-o] if value is 1 then output goes to file in working directory named output.txt; if value is 0 output goes to python pane')
 			sys.exit()
 		elif ou in ("-u", "--username"):
 			username = arg
