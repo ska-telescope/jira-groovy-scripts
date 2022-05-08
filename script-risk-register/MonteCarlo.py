@@ -40,8 +40,9 @@ def xstr(s): # this is just to handle converting lists to strings when there mig
 def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,output_file):
 	## define output location; if variable output_file is true then output goes to test.txt in working directory
 	fhold = sys.stdout
+	datestr = str(datetime.now().year) + "-" + str(datetime.now().month) + "-" + str(datetime.now().day)
 	if output_file:
-		f = open('./test.txt', 'w')
+		f = open('./output '+datestr+'.txt', 'w')
 		sys.stdout = f
 
 	#########################################################################################
@@ -393,10 +394,10 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 		print(fundinglevels)
 	#        pylab.step(fundingdates,fundinglevels,linewidth=5.0,color='red',where='post')
 	##    ax1.set_ylim([0.0,80.])
-	pylab.title('%s  Contingency spend curve in as-spent K-EUR'%projectname)
+	pylab.title('%s Contingency spend curve in as-spent K-EUR'%projectname)
 	ax1.set_xlabel('Date')
 	ax1.set_ylabel('Contingency Balance (as-spent K€)')
-	fig4.savefig('fig4.png')
+	fig4.savefig('MonteCarlo - Spend Curve '+datestr+'.png')
 	###################################################################
 	###########    End of spend curve plot      ###############
 	###################################################################
@@ -480,6 +481,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	# draw an arrow
 	arga = {'color':'r'}
 	ax2.arrow(hold50,.50,10.,.00,shape='full',lw=2,head_length=3,head_width=.03,**arga)
+	fig.savefig('MonteCarlo - Number of Occurances '+datestr+'.png')
 	##
 	##                                                                            Figure 2
 	##
@@ -520,7 +522,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	pylab.text(hold50+1,52,textstring2 ) # 50% value
 	pylab.text(hold80+1,22,textstring3 ) # 80% value
 	ax.set_aspect('auto')
-	fig.savefig('fig2.png')
+	fig.savefig('MonteCarlo - Percent Probability '+datestr+'.png')
 	##
 	##                                                                            Figure 3 subplot 1
 	##
@@ -539,7 +541,6 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	for label in labels:
 		label.set_rotation(45)
 	ax3.plot = hist(total_cost,bins=20)
-	fig.savefig('fig3.1.png')
 	##
 	##                                                                            Figure 3 subplot 2
 	##
@@ -553,7 +554,7 @@ def montecarlorisk(username,password,num_trials,annual_escalation,subsystem,outp
 	for label in labels:
 		label.set_rotation(45)
 	ax4.plot = hist(temp,bins=20)
-	fig.savefig('fig3.2.png')
+	fig.savefig('MonteCarlo - Histograms '+datestr+'.png')
 	plt.show()
 	sys.stdout = fhold
 
