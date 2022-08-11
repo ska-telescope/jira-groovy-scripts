@@ -46,7 +46,7 @@ if (cfFtes) \{\
     ftes = issue.getCustomFieldValue(cfFtes) as Double\
 \}\
 \
-def cost = 10.0 as Double // 10,000 per FTE per month\
+def cost = 11.069 as Double // 11,069 per FTE per month\
 \
 def overrideValue = 0.0 as Double;\
 if (cfOverride) \{\
@@ -68,7 +68,7 @@ else \{\
             return 0D\
     \} else if (recoverable == "No") \{\
         if (months)\
-            return months * 3200\
+            return months * 3619\
         else \
             return 0D\
     \} else \{\
