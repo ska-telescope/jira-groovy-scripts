@@ -32,7 +32,7 @@ Id,Code,Description
 31,01.02.01.02.05,MID Site Monitoring: Delivery
 32,01.02.01.02.05.01,MID Weather Visual & STI Monitoring Stations: Delivery
 33,01.02.01.02.05.02,MID RFI Monitoring Stations: Delivery
-34,01.02.01.02.06,MID Infrastructure Maintenance Vehicles: Delivery
+34,01.02.01.02.06,MID Vehicles: Delivery
 35,01.02.01.02.07,MID Array Infrastructure: Delivery
 36,01.02.01.02.07.01,MID Network Delivery: DDBH
 37,01.02.01.02.07.02,MID Network Delivery NSDN for MeerKAT Dishes
@@ -137,7 +137,7 @@ Id,Code,Description
 136,01.03.01.02.07,LOW Array Infrastructure
 137,01.03.01.02.07.01,LOW Network Delivery: NSDN
 138,01.03.01.02.07.02,LOW Network Delivery: CSP-SDP
-139,01.03.01.02.07.03,LOW Power and Fibre Networks Fibre Cable Assembly Access Airstrip and Prepared Ground: Delivery
+139,01.03.01.02.07.03,LOW Power and Fibre Networks Fibre Cable Assembly Access and Prepared Ground: Delivery
 140,01.03.01.02.07.06,LOW Network Activity Management
 141,01.03.01.02.07.07,Low Network Delivery - NMGR Hardware
 142,01.03.01.02.07.08,Fibre cabling and connectivity in Low CPF
@@ -150,8 +150,8 @@ Id,Code,Description
 149,01.03.02.02.01.03,Low Antenna Assembly subcontract
 150,01.03.02.02.02,Signal Processing Sub-system
 151,01.03.02.02.02.01,SPS Cabinet
-152,01.03.02.02.02.02,SPS Network Infrastructure (COTS)
-153,01.03.02.02.02.03,SPS & MCCS installation work in CPF/RPF
+152,01.03.02.02.02.02,LOW SPS Network Infrastructure (Optical Components for FEM)
+153,01.03.02.02.02.03,LOW SPS & MCCS integration work in Oxford
 154,01.03.02.02.02.04,SPS & MCCS integration at ITF
 155,01.03.02.02.03,DEPRECATED - Monitor Control and Calibration Sub-system (MCCS)
 156,01.03.02.02.03.02,DEPRECATED - MCCS LMC Infrastructure
@@ -231,15 +231,15 @@ Id,Code,Description
 230,01.02.09.03,System AIV-MID Portugal
 231,01.03.01.02.08,Main Road and Emergency Airstrip
 232,01.03.01.02.09,AARNET Fibre Delivery
-233,01.03.02.01.01,Low Station Management and Integration
-234,01.03.02.01.02,Low Station Management and Integration subcontract
+233,01.03.02.01.01,Low Station Management and Integration (CSIRO)
+234,01.03.02.01.02,Low Station Management and Integration (INAF)
 235,01.03.02.02.01.04,Low Power and Signal Distribution
-236,01.03.02.02.01.05,Low Power and Signal Distribution subcontract 1
-237,01.03.02.02.01.06,Low Power and Signal Distribution subcontract 2
+236,01.03.02.02.01.05,LOW SPS FEM (RFoF Converter)
+237,01.03.02.02.01.06,LOW SPS FEM (Pre-ADU)
 238,01.03.02.02.01.07,PaSD Design & Services Contract
-239,01.03.02.02.02.01.01,SPS Cabinet TPM Management (15%)
-240,01.03.02.02.02.01.02,Population of Cabinet (85%)
-241,01.03.02.02.02.05,"TPMs, India (In-kind)"
+239,01.03.02.02.02.01.01,LOW SPS Rack/Cabinet Support Management PSSC Italy Technical Lead
+240,01.03.02.02.02.01.02,LOW SPS Hardware for AA0.5 (ADU only)
+241,01.03.02.02.02.05,LOW SPS iTPMs India (In-kind)
 242,01.03.03.03,LOW Synchronisation and Timing: Activity Management (UoM)
 243,01.03.09.01,System AIV-Low Australia
 244,01.03.09.03,System AIV-Low Netherlands
@@ -266,3 +266,32 @@ Id,Code,Description
 265,01.06.04,AA3 Software Development
 266,01.06.05,AA4 Software Development
 267,01.07,SKARR MC80 Contingency
+268,01.02.01.02.12.01,MID Network Delivery NSDN
+269,01.02.01.02.12.02,MID Network Delivery: CSP-SDP
+270,01.02.01.02.12.03,MID Network Activity Management
+271,01.02.01.02.12.04,MID Network Delivery - NMGR Hardware
+272,01.02.01.02.12.05,Fibre cabling and connectivity in Mid CPF
+273,01.02.02.02.01.06.01,Management AIV Dish Structure Sub Reflector
+274,01.02.02.02.01.06.02,Shielded Cabinet
+275,01.02.02.02.01.06.03,Feed Indexer
+276,01.02.02.02.01.06.04,Buffer for package
+277,01.02.02.02.07.07,Band 5 Downconverter Delivery
+278,01.02.02.02.07.08,Pre Industrialisation
+279,01.02.02.02.07.09,SPFRx Qualification Hardware
+280,01.02.03.04.01.03,MID Frequency Distribution System Early Construction Ramp-up
+281,01.03.01.02.12.01,LOW Network Delivery: NSDN
+282,01.03.01.02.12.02,LOW Network Delivery CPF-SPC
+283,01.03.01.02.12.03,LOW Network Activity Management
+284,01.03.01.02.12.04,Low Network Delivery - NMGR Hardware
+285,01.03.01.02.12.05,Fibre cabling and connectivity in Low CPF
+286,01.03.02.02.01.08,Antenna Supply AA0.5
+287,01.03.02.02.02.01.03,LOW SPS Avnet Xilinx FPGA UK
+288,01.03.02.02.02.01.04,Pre Cons SPS Design Rack/Cabinet and Rack Management Design and Firmware
+289,01.03.02.02.02.01.05,LOW SPS Subrack and Subrack Management Board for AA0.5 onwards
+290,01.03.02.02.02.01.06,RMB PS/PSU Supply
+291,01.03.02.02.02.06,LOW SPS Rack /Cabinet/ RMB
+292,01.03.02.02.02.07,LOW SPS Switches
+293,01.03.02.02.02.08,LOW SPS Hardware - Sundries
+294,01.03.02.02.02.09,LOW SPS Cables
+295,01.03.12,LOW Telescope Logistics
+296,01.05.11,Switzerland Software development Cash
