@@ -68,7 +68,7 @@ else \{\
             return 0D\
     \} else if (recoverable == "No") \{\
         if (months)\
-            return months * 3619\
+            return months * 1000\  // critical path cost in K i.e. 1000,000
         else \
             return 0D\
     \} else \{\
