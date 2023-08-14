@@ -71,7 +71,7 @@ else \{\
             return 0D\
     \} else if (recoverable == "No") \{\
         if (months)\
-            return months * 3619\
+            return months * 1000\ 
         else \
             return 0D\
     \} else \{\
