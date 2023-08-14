@@ -46,7 +46,7 @@ if (cfFtes) \{\
     ftes = issue.getCustomFieldValue(cfFtes) as Double\
 \}\
 \
-def cost = 11.069 as Double // 11,069 per FTE per month\
+def cost = 10.167 as Double // 10,167 per FTE per month\
 \
 def overrideValue = 0.0 as Double;\
 if (cfOverride) \{\
