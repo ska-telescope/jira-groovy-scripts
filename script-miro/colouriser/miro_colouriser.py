@@ -407,6 +407,6 @@ if __name__ == "__main__":
 
     # Create a new instance of the 'MiroApi' object,
     # and pass the OAuth access token as a parameter
-    api = MiroApi(sy[4]))
+    api = MiroApi(sy[5])
 
     colourise(api, str(sy[2]), str(sy[3]), str(sy[4]), priorityDict, keyDict, teamDict, capDict, goalDict)
