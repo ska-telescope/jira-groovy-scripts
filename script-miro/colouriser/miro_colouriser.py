@@ -42,11 +42,7 @@ def retrieveJiraDetails(username,password):
     return features + other
 
 
-def colourise(board_id, frame_name, theme, priorityDict, keyDict, teamDict, capDict, goalDict):
-
-    # Create a new instance of the 'MiroApi' object,
-    # and pass the OAuth access token as a parameter
-    api = MiroApi('eyJtaXJvLm9yaWdpbiI6ImV1MDEifQ_nAgXzlHiOmWaUXpaIv4xdh9fk2Y')
+def colourise(api, board_id, frame_name, theme, priorityDict, keyDict, teamDict, capDict, goalDict):
 
     # https://miroapp.github.io/api-clients/python/miro_api/api.html#MiroApiEndpoints.get_specific_board
     board = api.get_specific_board(board_id=board_id)
@@ -217,25 +213,27 @@ def main(argv):
 	#####  DEFAULT PARAMETER VALUES ##########
 	##########################################
     username = '' 				# default value if not given in command line
-    password = 'eUuXJyPtRX1yEGFwh6RjdfFHESf41yW6Ax6efu'				# default value if not given in command line
+    password = 'eUuXJyPtRX1yEGFwh6RjdfFHESf41yW6Ax6efu'	# default value if not given in command line
     board_id = 'uXjVK6qyNUc='   # default value if not given in command line (Program of Program - Next PI)
     frame    = 'ALL'            # default value if not given in command line
     theme    = 'PRIORITY'       # default value for theme is Priority
+    token    = ''               # Miro API access token
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"hu:p:b:t:",["help","username","password","board","theme"])
+        opts, args = getopt.getopt(sys.argv[1:],"hu:p:b:c:t:",["help","username","password","board","colour_theme", "token"])
     except getopt.GetoptError:
-	    print('Usage: miro_colouriser.py -h <help> -u <username> -p <password> -b board -t theme')
+	    print('Usage: miro_colouriser.py -h <help> -u <username> -p <password> -b board -c colour_theme -t token')
         
     for ou, arg in opts:
         if ou in ("-h","--help"):
-            print('\b\n Usage: miro_colouriser.py   -h <help> -b <board> -t <theme>\b\n' + \
+            print('\b\n Usage: miro_colouriser.py   -h <help> -b <board> -c <colour_theme>\b\n' + \
             '\b\n [-u] jira username to access active and next PI jira ticket details'+\
 			'\b\n [-p] jira password to access active and next PI jira ticket details'+\
             '\b\n [-b] Miro Board ID to colourise (found via a web browser in the URL) e.g. uXjVK6qyNUc=' + \
-            '\b\n [-t] PRIORITY|ISSUETYPE|PULLED|CAPABILITY|GOAL (Default=PRIORITY)' + \
+            '\b\n [-c] PRIORITY|ISSUETYPE|PULLED|CAPABILITY|GOAL (Default=PRIORITY)' + \
+            '\b\n [-t] Miro API access token' + \
             '\b\n' + \
-            '\b\n Themes Explained' + \
+            '\b\n Colour Themes Explained' + \
             '\b\n PRIORITY      High=Red, Medium=Amber, Low=Blue, Not Assigned=Light Gray' + \
             '\b\n ISSUETYPE     Objective=Blue, Risk=Red, Dependency=Red, Bug=Red, Release=Dark Green' + \
             '\b\n CAPABILITY    SP issue linked to SS Capability=Magenta' + \
@@ -248,10 +246,12 @@ def main(argv):
             password = arg
         elif ou in ("-b", "--board"):
             board_id = arg
-        elif ou in ("-t", "--theme"):
+        elif ou in ("-c", "--colour_theme"):
             theme = arg.upper()
+        elif ou in ("-t", "--token"):
+            token = arg
         
-    return [username,password,board_id,frame,theme]
+    return [username,password,board_id,frame,theme,token]
 
 def xstr(s): # this is just to handle converting lists to strings when there might be some empty values
 	if s is None:
@@ -405,4 +405,8 @@ if __name__ == "__main__":
             print(e)
             continue
 
-    colourise(str(sy[2]), str(sy[3]), str(sy[4]), priorityDict, keyDict, teamDict, capDict, goalDict)
+    # Create a new instance of the 'MiroApi' object,
+    # and pass the OAuth access token as a parameter
+    api = MiroApi(sy[4]))
+
+    colourise(api, str(sy[2]), str(sy[3]), str(sy[4]), priorityDict, keyDict, teamDict, capDict, goalDict)
