@@ -256,7 +256,7 @@ def analyze(issues,issues_mit,jira,days):
 	df_mit.to_excel(writer,sheet_name='All Mitigations',startrow=0,index=False)
 
 	try:
-		writer.save()
+		writer.close()
 		print("Saved!")
 	except PermissionError:
 		print("ERROR: could not write file. Please ensure the Excel file is not already open.")
