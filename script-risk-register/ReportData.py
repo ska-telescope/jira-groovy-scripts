@@ -166,11 +166,11 @@ def analyze(issues,issues_mit,jira,days):
 
 	# risk overview and risk exposure tables
 	table_1a = pd.pivot_table(risks_all,index='Subsystem',columns='Status',values='Probability Weighted Exposure (€K)',aggfunc=len,fill_value=0,margins=False)
-	table_1b = pd.pivot_table(active_risks,index='Subsystem',values=['Probability Weighted Exposure (€K) After Mitigation','Probability Weighted Exposure (€K)','Non-labor PWE (€K)','Labor PWE (€K)'],aggfunc=sum,margins=False)
+	table_1b = pd.pivot_table(active_risks,index='Subsystem',values=['Probability Weighted Exposure (€K) After Mitigation','Probability Weighted Exposure (€K)','Non-labor PWE (€K)','Labor PWE (€K)'],aggfunc="sum",margins=False)
 
 	# opportunity overview and exposure
 	table_2a = pd.pivot_table(opps,index='Subsystem',columns='Status',values='Probability Weighted Exposure (€K)',aggfunc=len,fill_value=0,margins=False,dropna=False)
-	table_2b = pd.pivot_table(opps.query("Status=='Active Risk/Opportunity'"),index='Subsystem',values=['Probability Weighted Exposure (€K)'],aggfunc=sum,margins=False,dropna=False)
+	table_2b = pd.pivot_table(opps.query("Status=='Active Risk/Opportunity'"),index='Subsystem',values=['Probability Weighted Exposure (€K)'],aggfunc="sum",margins=False,dropna=False)
 
 	# top 10 risks based on PWE
 	sorted_risks = active_risks_all.sort_values(by='Probability Weighted Exposure (€K)',ascending=False)
@@ -185,7 +185,7 @@ def analyze(issues,issues_mit,jira,days):
 
 	# trigger date outlook (within next 6 months)
 	table_7 = active_risks_all[active_risks_all['Trigger Date'] < trigger_months].query('Model == "Trigger date"').sort_values(by='Trigger Date',ascending=True)[:][['Subsystem','JIRA ID (Parent)','Summary','WBS','Trigger Date','Probability','Nonlabor Cost','Labor Cost','Probability Weighted Exposure (€K)','Probability Weighted Exposure (€K) After Mitigation']]
-	table_7.concat(table_6.sum(numeric_only=True), ignore_index=True)
+	table_7 = pd.concat([table_7,table_6.sum(numeric_only=True)], ignore_index=True)
 
 	# get risks reviewed in last 30 days
 	last_reviewed = df[df['Review Date'] > (datetime.now() - timedelta(days=days))].sort_values(by='Review Date',ascending=True)
@@ -205,7 +205,7 @@ def analyze(issues,issues_mit,jira,days):
 			#if (pd.to_datetime(comment.created) > (datetime.now() - timedelta(days=30))):
 			if (c_date > (datetime.now() - timedelta(days = days))): # if comment is in the last 30 days
 				# append to a list with all the comments
-				c_table.concat({'Subsystem':last_reviewed.loc[i,'Subsystem'],'ID':curr,'Summary':last_reviewed.loc[i,'Summary'],'Date':c_date,'User':comment.author.displayName,'Comment':comment.body})
+				c_table.append({'Subsystem':last_reviewed.loc[i,'Subsystem'],'ID':curr,'Summary':last_reviewed.loc[i,'Summary'],'Date':c_date,'User':comment.author.displayName,'Comment':comment.body})
 
 	print("Done!")
 
