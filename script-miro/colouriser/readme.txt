@@ -13,5 +13,10 @@ This application is scheduled to run every hour.
 
 See schedule by running this command:
 
-schtasks/query /tn miro_colouriser
-schtasks /create /tn miro_colouriser /tr c:\gitlab\jira-groovy-scripts\script-miro\colouriser\colouriser.bat /sc HOURLY /mo 1 /ru "r.brederode" /st 11:00
+schtasks/query /tn miro_colouriser /v /fo LIST
+
+Create schedule by running this command
+schtasks /create /tn miro_colouriser /tr c:\gitlab\jira-groovy-scripts\script-miro\colouriser\miro_colouriser.bat /sc HOURLY /mo 1 /ru "r.brederode" /st 11:00
+
+Delete schedule by running this command
+schtasks /delete /tn miro_colouriser
