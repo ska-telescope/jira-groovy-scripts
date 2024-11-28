@@ -155,9 +155,9 @@ def get_miro_session(mode='headless',password=''):
         continueButton.click()
         print("Continue...")
         
-    except NoSuchElementException as e:
+    except (NoSuchElementException,ElementClickInterceptedException) as e:
 
-        print("No such element exception...trying again "+str(e))
+        print("Exception...trying again "+str(e))
 
         email = driver.find_element(By.XPATH,"//*[@id='email']")
         email.send_keys("jiraserviceuser@skatelescope.org")
@@ -262,7 +262,7 @@ def sync_planner(api, driver, url):
 
     # offset from the top left chrome window
     # this is where we start looking for the planner gadget
-    x = 900; y = 400
+    x = 900; y = 900
 
      # move mouse to the planner gadget and click
     action = ActionBuilder(driver)
@@ -301,7 +301,8 @@ def sync_planner(api, driver, url):
             break
 
         # if we did not find the sync button, move the mouse and try again
-        except (NoSuchElementException, ElementClickInterceptedException) as e:
+        except (NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException) as e:
+            print("Exception occured "+type(exception).__name__)
             print(str(now)+" Attempt "+str(i)+": Did not find the planner gadget at x="+str(x)+" y="+str(y))
             # move the mouse to search for the planner gadget...
             if i < 6:
@@ -310,7 +311,7 @@ def sync_planner(api, driver, url):
                 else: 
                     x=x+50 # move the mouse to the right
             elif i == 6:
-                x = 500; y = 400 # reset and start going upwards and left
+                x = 900; y = 900 # reset and start going upwards and left
             elif i >= 6 and i < 9:
                 x = x - 50 # move the mouse to the left
                 y = y - 50 # move the mouse upwards
@@ -323,12 +324,6 @@ def sync_planner(api, driver, url):
             action.pointer_action.move_to_location(x, y)
             action.pointer_action.click()
             action.perform()
-
-        # if the HTML element is not interactable...
-        except ElementNotInteractableException:
-            print("Element Not Interactable Exception: Aborting planner sync for "+url)
-            sync_misses+=1
-            break
     
 
 def main(argv):
@@ -409,7 +404,9 @@ if __name__ == "__main__":
 
         # flush latest sync date time to board descriptions if we have moved to a new board
         if board_id != last_board_id:
+            print("============================================")
             print("Board: "+str(last_board_id)+" Hits: "+str(sync_hits)+" Misses: "+str(sync_misses))
+            print("============================================")
             sync_hits=0;sync_misses=0
             update_board_descs(api)
             last_board_id = board_id
