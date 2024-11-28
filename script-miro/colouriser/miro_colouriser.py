@@ -3,46 +3,84 @@ from miro_api import MiroApi
 from miro_api.exceptions import NotFoundException
 from miro_api.exceptions import BadRequestException
 from miro_api.models.card_update_request import CardUpdateRequest
-from miro_api.models.update_card_style import UpdateCardStyle
+
 from miro_api.models.card_style import CardStyle
 from miro_api.models.card_data import CardData
 from miro_api.models.geometry import Geometry
+from miro_api.models.board_changes import BoardChanges
+from miro_api.models.update_card_style import UpdateCardStyle
 
 from jira import JIRA
+from jira.exceptions import JIRAError
 
 from pydantic import BaseModel, ValidationError
 
 import sys, getopt
 import numpy as np
-import getpass      #password input
-import re           #regular expressions
+import getpass                  #password input
+import re                       #regular expressions
+from datetime import datetime
 
+# dictionaries mapping from a card title... 
+priorityDict = {}   # to a priority
+keyDict = {}        # to an issuetype e.g. SDR
+teamDict = {}       # to a team name
+capDict = {}        # to a capability
+goalDict = {}       # to a goal colour
+goalKeyDict = {}    
+
+# Update the board description to record the colourisation date / time
+def update_board_desc(api, board_id):
+
+    now = datetime.now()
+
+    # get the miro board object
+    board = api.get_specific_board(board_id=board_id)
+
+    # get ready to update the miro board object
+    board_changes = BoardChanges()
+    board_changes.name = board.name
+    board_changes.description = board.description[0:270] + ' Colouriser '+now.strftime('%d-%b-%Y %H:%M')
+
+    # integrate the Colouriser date time into the board description if there was existing content
+    if board.description != None:
+        # look for Colouriser text (and/or datetime) in the board description
+        x = re.search(r'Colouriser [0-9]{1,}-[\D]{3}-[0-9]{4} [0-9]{1,}:[0-9]{2}|Colouriser', board.description)
+        # integrate the latest datetime stamp into the existing board description
+        if x != None and len(x.group()) > 0:
+            board_changes.description = board.description[0:x.start()] + ' Colouriser '+now.strftime('%d-%b-%Y %H:%M') + board.description[x.end():]
+
+    # update the board
+    board = api.update_board(board_id=board_id,board_changes=board_changes)
+    print("Updated Board "+board.name+" with board changes: "+board_changes.description) 
+
+# only retrieve details for the active and next PI Features\Enablers (SP) and Capabilities\Enablers (SS)
 def retrieveJiraDetails(username,password):
 
     server = "https://jira.skatelescope.org"
+    fields = "key,summary,issuetype,priority,customfield_14100,customfield_16916,customfield_15707"  # 16916 = Capabilities_MIRO  15707 = Goals_MIRO 14100 = Teams_MIRO
+    
     auth_inf = (username,password)
     try:
         jira = JIRA(server=server,basic_auth=auth_inf)
-    except:
-        print("ERROR: Jira authentication failed. Have you provided the correct username and password?")
-        return
+        query  = "project in (SP,SS) AND issuetype not in (Epic) AND (filter='SAFe - ActivePI' or filter='SAFe-NextPI') order by key ASC"
+        print(('\n\r Feature query to database \n\r\n\r'+ query +'\n\r'))
+        features = jira.search_issues(query,maxResults=None,fields=fields)
 
-
-    query = "project in (SP,SS) AND issuetype not in (Epic) AND (filter='SAFe - ActivePI' or filter='SAFe-NextPI') order by key ASC"
-    fields="key,summary,issuetype,priority,customfield_14100,customfield_16916,customfield_15707"  # 16916 = Capabilities_MIRO  15707 = Goals_MIRO 14100 = Teams_MIRO
-    print(('\n\r Feature query to database \n\r\n\r'+ query +'\n\r'))
-    features = jira.search_issues(query,maxResults=None,fields=fields)
+        query = "project in (SDR, SPO, ROAM, REL, TPO) AND status not in (Discarded) AND (filter='SAFe - ActivePI' or filter='SAFe-NextPI') OR (project=SKB and status not in (Discarded, Done)) order by key ASC"
+        print(('\n\r All other relevant issues query to database \n\r\n\r'+ query +'\n\r'))
+        other = jira.search_issues(query,maxResults=None,fields=fields) 
+    except Exception as e:
+        print("ERROR: Jira query failed.")
+        print(str(e))
+        return None
+    
     print(str(len(features))+" Cached Feature Tickets")
-
-    query = "project in (SDR, SPO, ROAM, REL, TPO) AND (filter='SAFe - ActivePI' or filter='SAFe-NextPI') OR (project=SKB and status not in (Discarded, Done)) order by key ASC"
-    print(('\n\r All other relevant issues query to database \n\r\n\r'+ query +'\n\r'))
-    other = jira.search_issues(query,maxResults=None,fields=fields) 
-
     print(str(len(other))+" Cached Other Tickets")
     return features + other
 
-
-def colourise(api, board_id, frame_name, theme, priorityDict, keyDict, teamDict, capDict, goalDict):
+# colourise the cards found on a given board & frame using the given theme
+def colourise(api, board_id, frame_name, theme):
 
     # https://miroapp.github.io/api-clients/python/miro_api/api.html#MiroApiEndpoints.get_specific_board
     board = api.get_specific_board(board_id=board_id)
@@ -213,20 +251,20 @@ def main(argv):
 	#####  DEFAULT PARAMETER VALUES ##########
 	##########################################
     username = '' 				# default value if not given in command line
-    password = 'eUuXJyPtRX1yEGFwh6RjdfFHESf41yW6Ax6efu'	# default value if not given in command line
+    password = ''				# default value if not given in command line
     board_id = 'uXjVK6qyNUc='   # default value if not given in command line (Program of Program - Next PI)
     frame    = 'ALL'            # default value if not given in command line
     theme    = 'PRIORITY'       # default value for theme is Priority
-    token    = ''               # Miro API access token
+    token    = ''               # must provide miro access token on the command line
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"hu:p:b:c:t:",["help","username","password","board","colour_theme", "token"])
+        opts, args = getopt.getopt(sys.argv[1:],"hu:p:b:c:t:",["help","username","password","board","theme"])
     except getopt.GetoptError:
 	    print('Usage: miro_colouriser.py -h <help> -u <username> -p <password> -b board -c colour_theme -t token')
         
     for ou, arg in opts:
         if ou in ("-h","--help"):
-            print('\b\n Usage: miro_colouriser.py   -h <help> -b <board> -c <colour_theme>\b\n' + \
+            print('\b\n Usage: miro_colouriser.py   -h <help> -b <board> -c <colour_theme> -t <token>\b\n' + \
             '\b\n [-u] jira username to access active and next PI jira ticket details'+\
 			'\b\n [-p] jira password to access active and next PI jira ticket details'+\
             '\b\n [-b] Miro Board ID to colourise (found via a web browser in the URL) e.g. uXjVK6qyNUc=' + \
@@ -276,19 +314,22 @@ if __name__ == "__main__":
     else:
         password = str(sy[1])
 
+    if str(sy[5])=='':
+        # prompt for Miro API Access Token
+        token = getpass.getpass(prompt="Please enter the Miro API access token: ")
+    else:
+        token = str(sy[5])
+
     print(' Board ID: %s' %str(sy[2]))
     print(' Frame: %s' %str(sy[3]))
     print(' Theme: %s' %str(sy[4])) 
 
     # retrieve active PI Jira tickets directly from Jira...to link up to the Miro Jira Cards
-    issues = retrieveJiraDetails(username, password)      
+    issues = retrieveJiraDetails(username, password)
 
-    priorityDict = {}
-    keyDict = {}
-    teamDict = {}
-    capDict = {}
-    goalDict = {}
-    goalKeyDict = {}
+    if issues == None:
+        print("Could not retrieve Jira issues...aborting")
+        exit(1)
 
     # Initialise a colour map
     colours = [
@@ -307,7 +348,12 @@ if __name__ == "__main__":
         '#97A8FE', #97A8FE
         '#D7F8FD', #D7F8FD
         '#E1B60E', #E1B60E
-        '#FC6CE7'  #pink
+        '#FC6CE7', #pink
+        '#A8BBDD', #metal blue
+        '#E5EEFB', #light blue
+        '#E7415F', #funny red
+        '#B09499', #greyish
+        '#1C642D'  #dark green
     ]
     goalCount = 0
     print("Length of goal colour map "+str(len(colours)))
@@ -333,7 +379,7 @@ if __name__ == "__main__":
                 if goalKey != '':
 
                     # find out how many goals the issue is linked to
-                    goalLinks = goalKey.count("MID") + goalKey.count("LOW") + goalKey.count("OBS") + goalKey.count("SPO")
+                    goalLinks = goalKey.count("MID") + goalKey.count("LOW") + goalKey.count("OBS") + goalKey.count("COM") + goalKey.count("SPO")
                     if goalLinks > 1:
                         goalKey = "MULTIPLE"
 
@@ -379,7 +425,7 @@ if __name__ == "__main__":
                 print('Found Goal '+ issue_key + " " + issue_type + " " + issue_summary)
 
                 # look for the goal key in the Summary of the goal issue
-                x = re.search("Mid G[0-9]+|Low G[0-9]+|Obs G[0-9]+", issue_summary, re.IGNORECASE)
+                x = re.search("Mid G[0-9]+|Low G[0-9]+|Obs G[0-9]+|Com G[0-9]+", issue_summary, re.IGNORECASE)
 
                 # if we did'nt find the goal key in the Summary, then the goal key must be the goal issue key
                 if x is None:
@@ -405,8 +451,7 @@ if __name__ == "__main__":
             print(e)
             continue
 
-    # Create a new instance of the 'MiroApi' object,
-    # and pass the OAuth access token as a parameter
-    api = MiroApi(sy[5])
-
-    colourise(api, str(sy[2]), str(sy[3]), str(sy[4]), priorityDict, keyDict, teamDict, capDict, goalDict)
+    # Create a new instance of the 'MiroApi' object, and pass the OAuth access token as a parameter
+    api = MiroApi(token)
+    colourise(api=api, board_id=str(sy[2]), frame_name=str(sy[3]), theme=str(sy[4]))
+    update_board_desc(api=api, board_id=str(sy[2]))
