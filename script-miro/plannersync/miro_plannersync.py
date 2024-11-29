@@ -141,8 +141,11 @@ def get_miro_session(mode='headless',password=''):
         email.send_keys("jiraserviceuser@skatelescope.org")
         print("Populated email...")
 
+        time.sleep(2) 
+
         cookies = driver.find_element(By.XPATH,"//button[@id='onetrust-accept-btn-handler']")
-        cookies.click()
+        driver.execute_script("arguments[0].click()", cookies)
+        # cookies.click()
         print("Accepted all cookies...")
         
         pword = driver.find_element(By.CSS_SELECTOR,"#password") #password
@@ -224,11 +227,13 @@ def update_board_descs(api):
 
         # integrate the PlannerSync date time into the board description if there was existing content
         if board.description != None:
+            # removes multiple spaces in the middle by splitting and joining again
+            stripped = ' '.join(board.description.split())
             # look for PlannerSync text (and/or datetime) in the board description
-            x = re.search(r'PlannerSync[ed]* [0-9]{1,}-[\D]{3}-[0-9]{4} [0-9]{1,}:[0-9]{2}|PlannerSync[ed]*', board.description)
+            x = re.search(r'PlannerSync[ed]* [0-9]{1,}-[\D]{3}-[0-9]{4} [0-9]{1,}:[0-9]{2}|PlannerSync[ed]*', stripped)
             # integrate the latest datetime stamp into the existing board description
             if len(x.group()) > 0:
-                board_changes.description = (board.description[0:x.start()] + value + board.description[x.end():])[0:299]
+                board_changes.description = (stripped[0:x.start()] + value + stripped[x.end():])[0:300]
 
         # update the board
         board = api.update_board(board_id=key,board_changes=board_changes)
@@ -280,8 +285,6 @@ def sync_planner(api, driver, url):
             # try to find the sync button on the planner gadget 
             element = driver.find_element(By.CSS_SELECTOR,"#pipmatrix-sync")
             print(str(now)+" Syncing planner gadget at "+url)
-            print("location:", element.location)
-            print("size", element.size)
             
             # click the sync button
             element.click()
@@ -302,7 +305,10 @@ def sync_planner(api, driver, url):
 
         # if we did not find the sync button, move the mouse and try again
         except (NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException) as e:
-            print("Exception occured "+type(exception).__name__)
+            
+            if  type(e).__name__ != "NoSuchElementException":
+                print("Exception occured "+type(e).__name__)
+                
             print(str(now)+" Attempt "+str(i)+": Did not find the planner gadget at x="+str(x)+" y="+str(y))
             # move the mouse to search for the planner gadget...
             if i < 6:
@@ -378,6 +384,12 @@ if __name__ == "__main__":
     if sy[4]:
         with open("plannersync.dat", 'r') as f:
             planners = [line.rstrip('\n') for line in f]
+            # switch the order of planner execution every day            
+            if datetime.now().hour > 12:
+                planners.sort(reverse=True)
+            else:
+                planners.sort(reverse=False)
+            
     else:
         # get all planner gadgets that need a sync, passing board id if set
         planners = get_planner_gadgets(api, sy[1])
