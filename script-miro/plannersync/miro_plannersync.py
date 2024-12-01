@@ -10,6 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import MoveTargetOutOfBoundsException
 
 # Import the Miro Api
 from miro_api import MiroApi
@@ -262,19 +263,15 @@ def sync_planner(api, driver, url):
     # shorten how long we will wait for if the mouse click on the planner hits a jira ticket instead of the planner gadget
     driver.implicitly_wait(0) # seconds
 
-    # suspend processing for 15 seconds to load the url
-    time.sleep(15)
+    # suspend processing for up to 30 secs to load the url
+    WebDriverWait(driver, 30).until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
 
     # offset from the top left chrome window
     # this is where we start looking for the planner gadget
     x = 900; y = 900
 
-     # move mouse to the planner gadget and click
+    # action builder to move the mouse
     action = ActionBuilder(driver)
-    driver.execute_script(cursor_script)
-    action.pointer_action.move_to_location(x, y)
-    action.pointer_action.click()
-    action.perform()
 
     # we are going to try to find the planner gadget 10 times in total
     for i in range(10):
@@ -282,6 +279,11 @@ def sync_planner(api, driver, url):
         now = datetime.now()
 
         try:
+            # move mouse to the planner gadget and click
+            action.pointer_action.move_to_location(x, y)
+            action.pointer_action.click()
+            action.perform()
+            
             # try to find the sync button on the planner gadget 
             element = driver.find_element(By.CSS_SELECTOR,"#pipmatrix-sync")
             print(str(now)+" Syncing planner gadget at "+url)
@@ -298,13 +300,15 @@ def sync_planner(api, driver, url):
             break
 
         # if the HTML element is no longer on the page...
-        except StaleElementReferenceException:
-            print("Stale Element Reference Exception: Aborting planner sync for "+url)
+        except StaleElementReferenceException as e:
+            print("Exception occured "+type(e).__name__)
+            print("Aborting planner sync for "+url)
+            
             sync_misses+=1
             break
 
-        # if we did not find the sync button, move the mouse and try again
-        except (NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException) as e:
+        # if we did not find the sync button or something else went wrong, move the mouse and try again
+        except (MoveTargetOutOfBoundsException, NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException) as e:
             
             if  type(e).__name__ != "NoSuchElementException":
                 print("Exception occured "+type(e).__name__)
@@ -325,11 +329,7 @@ def sync_planner(api, driver, url):
                 print("Giving up on planner gadget at "+url)
                 sync_misses+=1
                 break
-           
-            # try again
-            action.pointer_action.move_to_location(x, y)
-            action.pointer_action.click()
-            action.perform()
+            
     
 
 def main(argv):
