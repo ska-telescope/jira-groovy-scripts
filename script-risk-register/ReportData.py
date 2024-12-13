@@ -5,6 +5,7 @@ import getpass
 import openpyxl
 import pytz
 from jira import JIRA
+import shutil
 #import xlsxwriter
 
 def wbs_codes(indexes):
@@ -235,31 +236,33 @@ def analyze(issues,issues_mit,jira,days):
 	#df['Review Date'] = df['Review Date'].dt.tz_localize(None) # remove timezone of datetime since Excel does not support it
 	#df['Trigger Date'] = df['Trigger Date'].dt.tz_localize(None)
 
-	book = openpyxl.load_workbook('R&O Report Template.xlsx')
 	filename = "Risk Report Data on " + str(datetime.now().year) + "-" + str(datetime.now().month) + "-" + str(datetime.now().day)+ ".xlsx"
-	writer = pd.ExcelWriter(filename, datetime_format='YYYY-MM-DD HH:MM:SS', engine='openpyxl')
-	writer.workbook = book
-	writer.worksheets = dict((ws.title,ws) for ws in book.worksheets)
+	shutil.copyfile('R&O Report Template.xlsx',filename)
+	reader = pd.read_excel(filename)
+	book = openpyxl.load_workbook(filename)
+	with pd.ExcelWriter(filename, datetime_format='YYYY-MM-DD HH:MM:SS', engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
+                writer.workbook = book
+                writer.sheets.update(dict((ws.title,ws) for ws in book.worksheets))
 
-	table_1a.to_excel(writer,sheet_name='Table 1',startrow=10,startcol=11)
-	table_1b.to_excel(writer,sheet_name='Table 1',startrow=2,startcol=11,header=False)
-	table_2b.to_excel(writer,sheet_name='Table 2',startrow=2,startcol=10,header=False)
-	table_2a.to_excel(writer,sheet_name='Table 2',startrow=11,startcol=10)
-	table_3.to_excel(writer,sheet_name='Table 3',startrow=3,startcol=1,index=False,header=False)
-	table_4.to_excel(writer,sheet_name='Table 4',startrow=3,startcol=1,index=False,header=False)
-	table_6.to_excel(writer,sheet_name='Table 6',startrow=1,index=False,header=False)
-	table_7.to_excel(writer,sheet_name='Table 7',startrow=1,index=False,header=False)
-	table_8.to_excel(writer,sheet_name='Table 8',startrow=1,header=False)
-	table_9.to_excel(writer,sheet_name='Table 9',startrow=1,na_rep = ' ',header=False)
-	active_risks_all.to_excel(writer,sheet_name='All Active Risks',startrow=0,index=False)
-	non_active_risks.to_excel(writer,sheet_name='All Non-Active Risks',startrow=0,index=False)
-	df_mit.to_excel(writer,sheet_name='All Mitigations',startrow=0,index=False)
+                table_1a.to_excel(writer,sheet_name='Table 1',startrow=10,startcol=11)
+                table_1b.to_excel(writer,sheet_name='Table 1',startrow=2,startcol=11,header=False)
+                table_2b.to_excel(writer,sheet_name='Table 2',startrow=2,startcol=10,header=False)
+                table_2a.to_excel(writer,sheet_name='Table 2',startrow=11,startcol=10)
+                table_3.to_excel(writer,sheet_name='Table 3',startrow=3,startcol=1,index=False,header=False)
+                table_4.to_excel(writer,sheet_name='Table 4',startrow=3,startcol=1,index=False,header=False)
+                table_6.to_excel(writer,sheet_name='Table 6',startrow=1,index=False,header=False)
+                table_7.to_excel(writer,sheet_name='Table 7',startrow=1,index=False,header=False)
+                table_8.to_excel(writer,sheet_name='Table 8',startrow=1,header=False)
+                table_9.to_excel(writer,sheet_name='Table 9',startrow=1,na_rep = ' ',header=False)
+                active_risks_all.to_excel(writer,sheet_name='All Active Risks',startrow=0,index=False)
+                non_active_risks.to_excel(writer,sheet_name='All Non-Active Risks',startrow=0,index=False)
+                df_mit.to_excel(writer,sheet_name='All Mitigations',startrow=0,index=False)
 
-	try:
-		writer.close()
-		print("Saved!")
-	except PermissionError:
-		print("ERROR: could not write file. Please ensure the Excel file is not already open.")
+                try:
+                        #writer.close()
+                        print("Saved!")
+                except PermissionError:
+                        print("ERROR: could not write file. Please ensure the Excel file is not already open.")
 
 	wb = openpyxl.load_workbook(filename)
 	date_style = openpyxl.styles.NamedStyle(name='datetime', number_format='DD/MM/YYYY')
