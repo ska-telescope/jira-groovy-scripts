@@ -1,0 +1,177 @@
+requirement_fields:
+  - name: Id
+    jama_field:
+      key: id
+  - name: Requirement ID
+    jama_field:
+      key: fields.req_id_codr$1090
+  - name: Tag
+    jama_field:
+      key: fields.tag$1090
+  - name: Verification Requirement
+    jama_field:
+      key: fields.verification_requirement$1090
+  - name: Parent ID
+    jama_field:
+      key: location.parent.item
+  - name: Created Date
+    jama_field:
+      key: createdDate
+  - name: Modified Date
+    jama_field:
+      key: modifiedDate
+  - name: Project ID
+    jama_field:
+      key: project
+  - name: Document Key
+    jama_field:
+      key: documentKey
+    jira_field:
+      key: fields.customfield_12133
+  - name: jama_url
+    jira_field:
+      key: fields.customfield_13903
+  - name: Name
+    jama_field:
+      key: fields.name
+    jira_field:
+      key: fields.summary
+  - name: Description
+    jama_field:
+      key: fields.description
+      transformer: parse_html
+    jira_field:
+      key: fields.description
+  - name: Status ID
+    jama_field:
+      key: fields.status
+  - name: Verification
+    jama_field:
+      key: fields.verification$1090
+  - name: Verification Methods
+    jama_field:
+      key: fields.verification_method$1090
+    jira_field:
+      key: fields.customfield_12149
+      type: array
+  - name: Milestone Id
+    jama_field:
+      key: fields.verification_milestone$1090
+    jira_field:
+      key: fields.customfield_15502
+      type: array
+  - name: Rationale
+    jama_field:
+      key: fields.requirement_rationale$1090
+    jira_field:
+      key: fields.customfield_12137
+  - name: Category
+    jama_field:
+      key: fields.category$1090
+    jira_field:
+      key: fields.customfield_12144
+  - name: Allocation To
+    jama_field:
+      key: fields.allocation_to$1090
+  - name: Allocation
+    jama_field:
+      key: fields.allocation$1090
+    jira_field:
+      key: fields.customfield_16607
+      type: array
+  - name: Compliance ID
+    jama_field:
+      key: fields.compliant$1090
+    jira_field:
+      key: fields.customfield_12149
+      type: radio
+  - name: Compliance Rationale
+    jama_field:
+      key: fields.compliance_rationale$1090
+    jira_field:
+      key: fields.customfield_16604
+  - name: component
+    jira_field:
+      key: components
+    
+test_case_fields:
+  - name: id
+    jama_field:
+      key: id
+  - name: jama_project_id
+    jama_field:
+      key: project
+  - name: documentKey
+    jama_field:
+      key: documentKey
+    jira_field:
+      key: fields.customfield_12133
+  - name: jama_url
+    jira_field:
+      key: fields.customfield_13903
+  - name: name
+    jama_field:
+      key: fields.name
+    jira_field:
+      key: fields.summary
+  - name: description
+    jama_field:
+      key: fields.description
+      transformer: parse_html
+    jira_field:
+      key: fields.description
+  - name: verification_milestone
+    jama_field:
+      key: fields.milestone$1091
+      transformer: lookup_milestones
+    jira_field:
+      key: fields.customfield_15502
+      type: array
+  - name: test
+    jama_field:
+      key: fields.testCaseSteps
+      transformer: get_test_case
+    jira_field:
+      key: fields.customfield_14811
+  - name: status
+    jama_field:
+      key: fields.testCaseStatus
+      transformer: lookup_status
+
+interfaces_fields:
+  - name: id
+    jam_field:
+      key: id
+  - name: jama_project_id
+    jama_field:
+      key: project
+  - name: documentKey
+    jama_field:
+      key: documentKey
+    jira_field:
+      key: fields.customfield_12133
+  - name: jama_url
+    jira_field:
+      key: fields.customfield_13903
+  - name: name
+    jama_field:
+      key: fields.name
+    jira_field:
+      key: fields.summary
+  - name: description
+    jama_field:
+      key: fields.description
+      transformer: parse_html
+    jira_field:
+      key: fields.description
+  - name: design_compliance
+    jama_field:
+      key: fields.design_compliance$1358
+      transformer: lookup_compliances
+    jira_field:
+      key: fields.customfield_16602
+      type: radio
+  - name: status
+    jama_field:
+      key: fields.statusicd$1358
+      transformer: lookup_status
